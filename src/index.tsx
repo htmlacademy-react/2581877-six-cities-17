@@ -1,77 +1,74 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
+import { Offer, HousingType } from './types';
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
 
-enum HousingType {
-  Apartament = 1,
-  Room = 2,
-}
-
-type OfferLocation {
-  lat: Number;
-  lon: Number;
-}
-
-type Offer = {
-  title: String;
-  price: Number;
-  rating: Number;
-  housingType: HousingType;
-  marked: boolean;
-  location: OfferLocation;
-}
-
-let offers: Offer[] = [
+const offers: Offer[] = [
   {
+    id: 1,
     title: 'Beautiful & luxurious apartment at great location',
     price: 120,
-    rating: 4,
+    rating: 80,
     housingType: HousingType.Apartament,
-    marked: false,
+    isMarked: false,
+    isPremium: true,
     location: {lat: 0, lon: 0},
-  
+    imageUrl: 'img/apartment-01.jpg',
   },
   {
-    title: 'Wood and stone place',
-    price: 380,
-    rating: 4,
-    housingType: HousingType.Room,
-    marked: false,
-    location: {lat: 0, lon: 0},
-  },
-  {
-    title: 'Canal View Prinsengracht',
-    price: 132,
-    rating: 4,
-    housingType: HousingType.Apartament,
-    marked: false,
-    location: {lat: 0, lon: 0},
-  },
-  {
-    title: 'Nice, cozy, warm big bed apartment',
-    price: 180,
-    rating: 5,
-    housingType: HousingType.Apartament,
-    marked: false,
-    location: {lat: 0, lon: 0},
-  },
-  {
+    id: 2,
     title: 'Wood and stone place',
     price: 80,
-    rating: 4,
+    rating: 80,
     housingType: HousingType.Room,
-    marked: false,
+    isMarked: true,
+    isPremium: false,
     location: {lat: 0, lon: 0},
+    imageUrl: 'img/room.jpg',
   },
-]
+  {
+    id: 3,
+    title: 'Canal View Prinsengracht',
+    price: 132,
+    rating: 80,
+    housingType: HousingType.Apartament,
+    isMarked: false,
+    isPremium: false,
+    location: {lat: 0, lon: 0},
+    imageUrl: 'img/apartment-02.jpg',
+  },
+  {
+    id: 4,
+    title: 'Nice, cozy, warm big bed apartment',
+    price: 180,
+    rating: 100,
+    housingType: HousingType.Apartament,
+    isMarked: false,
+    isPremium: true,
+    location: {lat: 0, lon: 0},
+    imageUrl: 'img/apartment-03.jpg',
+  },
+  {
+    id :5,
+    title: 'Wood and stone place',
+    price: 80,
+    rating: 80,
+    housingType: HousingType.Room,
+    isMarked: true,
+    isPremium: false,
+    location: {lat: 0, lon: 0},
+    imageUrl: 'img/room.jpg',
+  },
+];
 
 root.render(
   <React.StrictMode>
-    <App offers = {offers} />
+    <App offers={offers}/>
   </React.StrictMode>
 );
