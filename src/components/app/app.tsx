@@ -11,6 +11,8 @@ import { Offer } from '../../types';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import PrivateRoute from '../private-route/private-route';
 
+let authorizationStatus: AuthorizationStatus = AuthorizationStatus.Auth;
+
 type AppProps = {
   offers: Offer[];
 }
@@ -24,12 +26,12 @@ function App({ offers }: AppProps): JSX.Element {
             <Route index element={<MainPage offers={offers} />} />
             <Route path={AppRoute.Favorites}
               element={
-                <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-                  <FavoritesPage />
+                <PrivateRoute authorizationStatus={authorizationStatus}>
+                  <FavoritesPage offers={offers} />
                 </PrivateRoute>
               }
             />
-            <Route path={AppRoute.Offer} element={<OfferPage />} />
+            <Route path={AppRoute.Offer} element={<OfferPage offers={offers} authorizationStatus={authorizationStatus}/>} />
           </Route>
           <Route path={AppRoute.Login} element={<LoginPage />} />
           <Route path='*' element={<Page404 />} />
