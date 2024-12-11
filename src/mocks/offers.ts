@@ -1,4 +1,4 @@
-import { Offer, OfferСonvenience } from "../types";
+import { Offer, OfferСonvenience } from '../types';
 
 export const offers: Offer[] = [
   {

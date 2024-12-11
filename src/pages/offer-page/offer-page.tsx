@@ -17,7 +17,7 @@ type OfferPageProps = {
 function OfferPage({ offers, authorizationStatus }: OfferPageProps): JSX.Element {
   const { id } = useParams();
 
-  const offer = offers.find(offer => offer.id === Number(id));
+  const offer = offers.find((iteration: Offer) => iteration.id === Number(id));
 
   if (offer === undefined) {
     return (<Page404 />);
@@ -82,7 +82,7 @@ function OfferPage({ offers, authorizationStatus }: OfferPageProps): JSX.Element
                   <h1 className="offer__name">
                     {offer.title}
                   </h1>
-                  <button className={'offer__bookmark-button button' + (offer.isMarked ? ' offer__bookmark-button--active' : '')} type="button">
+                  <button className={`offer__bookmark-button button${(offer.isMarked ? ' offer__bookmark-button--active' : '')}`} type="button">
                     <svg className="offer__bookmark-icon" width="31" height="33">
                       <use xlinkHref="#icon-bookmark"></use>
                     </svg>
@@ -145,7 +145,7 @@ function OfferPage({ offers, authorizationStatus }: OfferPageProps): JSX.Element
                     </p>
                   </div>
                 </div>
-                <OfferReviews reviews={offer.reviews} authorizationStatus={authorizationStatus} />
+                <OfferReviews authorizationStatus={authorizationStatus} />
               </div>
             </div>
             <section className="offer__map map"></section>

@@ -1,6 +1,6 @@
-import OfferCard from "../offer-card/offer-card"
-import { Offer } from "../../types"
-import { useState } from "react";
+import OfferCard from '../offer-card/offer-card';
+import { Offer } from '../../types';
+import { useState } from 'react';
 
 type OffersListProps = {
   offers: Offer[];
@@ -11,8 +11,7 @@ function OffersList({ offers }: OffersListProps): JSX.Element {
 
   function changeHighlightOfferCard(offerId : number | null): void {
     setActiveOfferCardId(offerId);
-    activeOfferCardId;
-    console.log(`highlight ${offerId===null?'nothing':offerId}`);
+    console.log(`highlight ${offerId === null ? 'nothing' : offerId}`);
   }
 
   return (
@@ -45,7 +44,7 @@ function OffersList({ offers }: OffersListProps): JSX.Element {
         <section className="cities__map map"></section>
       </div>
     </>
-  )
+  );
 }
 
 export default OffersList;

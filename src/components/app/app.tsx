@@ -11,7 +11,7 @@ import { Offer } from '../../types';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import PrivateRoute from '../private-route/private-route';
 
-let authorizationStatus: AuthorizationStatus = AuthorizationStatus.Auth;
+const authorizationStatus: AuthorizationStatus = AuthorizationStatus.Auth;
 
 type AppProps = {
   offers: Offer[];

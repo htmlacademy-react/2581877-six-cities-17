@@ -1,41 +1,41 @@
 
-import { useState } from "react";
-import React from "react";
-import { Review } from "../../types";
+import { useState } from 'react';
+import React from 'react';
+import { Review } from '../../types';
 
-let emprtyReview: Review = {
+const emprtyReview: Review = {
   text: '',
   rating: 0,
   date: new Date(0),
   id: -1,
-}
+};
 
 
 type OfferReviewSubmitProps = {
-  addReviewCallback: (newReview: Review) => void,
+  addReviewCallback: (newReview: Review) => void;
 }
 
 function OfferReviewSubmit({ addReviewCallback }: OfferReviewSubmitProps): JSX.Element {
-  let [newReview, setNewReview] = useState(emprtyReview);
+  const [newReview, setNewReview] = useState(emprtyReview);
 
   const handleRtingFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const rating = Number(event.target.value);
     setNewReview({ ...newReview, rating });
-  }
+  };
 
   const handleTextFieldChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const text = event.target.value;
     setNewReview({ ...newReview, text });
-  }
+  };
 
   const handleFormSubmit = (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
     let { text, date} = newReview;
     date = new Date();
     text = text.replace(/\s+/g, ' ').trim();
-    addReviewCallback({...newReview, date, text})
+    addReviewCallback({...newReview, date, text});
     setNewReview(emprtyReview);
-  }
+  };
 
   const formIsValid = (): boolean => (newReview.text.length > 50) && (newReview.rating > 0);
   const getRadionLabelId = (rating: number): string => `${rating}-star`;
@@ -64,7 +64,7 @@ function OfferReviewSubmit({ addReviewCallback }: OfferReviewSubmitProps): JSX.E
         <button onClick={handleFormSubmit} className="reviews__submit form__submit button" type="submit" disabled={formIsValid() === false}>Submit</button>
       </div>
     </form>
-  )
+  );
 }
 
 export default OfferReviewSubmit;

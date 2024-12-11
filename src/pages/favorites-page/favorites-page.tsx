@@ -9,16 +9,16 @@ type FavoritesPageProps = {
 function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
 
   //фильтруем предложения в закладках
-  let markedOffers: Offer[] = offers.filter((offer: Offer) => offer.isMarked);
+  const markedOffers: Offer[] = offers.filter((offer: Offer) => offer.isMarked);
 
   //поднимаем премиум вверх
-  markedOffers.sort((a: Offer, b: Offer) => Number(b.isPremium) - Number(a.isPremium))
+  markedOffers.sort((a: Offer, b: Offer) => Number(b.isPremium) - Number(a.isPremium));
 
   type CategorizedOffers = {
     [cityName in OfferCity]?: Offer[];
   };
 
-  let categorizedOffers: CategorizedOffers = {};
+  const categorizedOffers: CategorizedOffers = {};
 
   //разбиваем массив предложений на словарь OfferCity -> Offer[]
   markedOffers.forEach((offer: Offer) => {
@@ -29,7 +29,7 @@ function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
     if (offer.isMarked) {
       categorizedOffers[offerCity].push(offer);
     }
-  })
+  });
 
 
   return (
@@ -72,7 +72,7 @@ function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
             <section className="favorites">
               <h1 className="favorites__title">Saved listing</h1>
               <ul className="favorites__list">
-                {Object.entries(categorizedOffers).map(([cityName, offers]: [string, Offer[]]) => (
+                {Object.entries(categorizedOffers).map(([cityName, offersInCity]: [string, Offer[]]) => (
                   <li className="favorites__locations-items" key={cityName}>
                     <div className="favorites__locations locations locations--current">
                       <div className="locations__item">
@@ -82,7 +82,7 @@ function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
                       </div>
                     </div>
                     <div className="favorites__places">
-                      {offers.map((offer: Offer) => (
+                      {offersInCity.map((offer: Offer) => (
                         <FavoriteCard offer={offer} key={offer.id} />
                       ))}
                     </div>

@@ -9,7 +9,7 @@ type OfferCardProps = {
 }
 
 function OfferCard({ offer, callback }: OfferCardProps): JSX.Element {
-  let linkToOffer:string = getLinkToOffer(offer.id);
+  const linkToOffer:string = getLinkToOffer(offer.id);
   return (
     <article className="cities__card place-card"
       onMouseEnter={() => callback(offer.id)}

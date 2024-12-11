@@ -1,23 +1,22 @@
-import { useState } from "react";
-import { Review } from "../../types";
-import { reviews as defaultRevies } from "../../mocks/reviwes";
-import { ratingToPercent } from "../../common";
-import { AuthorizationStatus } from "../../const";
-import OfferReviewForm from "../offer-review-form/offer-review-form";
+import { useState } from 'react';
+import { Review } from '../../types';
+import { reviews as defaultRevies } from '../../mocks/reviwes';
+import { ratingToPercent } from '../../common';
+import { AuthorizationStatus } from '../../const';
+import OfferReviewForm from '../offer-review-form/offer-review-form';
 
 
 type OfferReviewsProps = {
-  reviews: Review[];
   authorizationStatus: AuthorizationStatus;
 }
 
 function OfferReviews(props: OfferReviewsProps): JSX.Element {
-  let [reviews, setReviews] = useState(defaultRevies);
+  const [reviews, setReviews] = useState(defaultRevies);
 
   const addReview = (newReview: Review) => {
     newReview.id = reviews.length;
     setReviews([...reviews, newReview]);
-  }
+  };
 
   const reviewTimeFormat = (date: Date): string => `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
 

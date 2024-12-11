@@ -1,6 +1,6 @@
-import { Offer } from "../../types";
-import { ratingToPercent, getLinkToOffer } from "../../common";
-import { Link } from "react-router-dom";
+import { Offer } from '../../types';
+import { ratingToPercent, getLinkToOffer } from '../../common';
+import { Link } from 'react-router-dom';
 
 type FavoriteCardProps = {
   offer: Offer;
@@ -8,7 +8,7 @@ type FavoriteCardProps = {
 
 
 function FavoriteCard({ offer }: FavoriteCardProps): JSX.Element {
-  let linkToOffer: string = getLinkToOffer(offer.id);
+  const linkToOffer: string = getLinkToOffer(offer.id);
 
   return (
     <article className="favorites__card place-card">
@@ -47,9 +47,7 @@ function FavoriteCard({ offer }: FavoriteCardProps): JSX.Element {
         <p className="place-card__type">{offer.housingType}</p>
       </div>
     </article>
-
-
-  )
+  );
 }
 
 export default FavoriteCard;
