@@ -30,31 +30,38 @@ function OfferReviewSubmit({ addReviewCallback }: OfferReviewSubmitProps): JSX.E
 
   const handleFormSubmit = (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    let { text, date} = newReview;
+    let { text, date } = newReview;
     date = new Date();
     text = text.replace(/\s+/g, ' ').trim();
-    addReviewCallback({...newReview, date, text});
+    addReviewCallback({ ...newReview, date, text });
     setNewReview(emprtyReview);
   };
 
   const formIsValid = (): boolean => (newReview.text.length > 50) && (newReview.rating > 0);
   const getRadionLabelId = (rating: number): string => `${rating}-star`;
 
+  const RatingStar = ({ rating }: { rating: number }) => (
+    <React.Fragment>
+      <input onChange={handleRtingFieldChange} checked={newReview.rating === rating} className="form__rating-input visually-hidden" name="rating" value={rating} id={getRadionLabelId(rating)} type="radio" />
+      <label htmlFor={getRadionLabelId(rating)} className="reviews__rating-label form__rating-label" title="perfect">
+        <svg className="form__star-image" width="37" height="33">
+          <use xlinkHref="#icon-star"></use>
+        </svg>
+      </label>
+    </React.Fragment>
+
+  );
+
+
   return (
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {[5, 4, 3, 2, 1].map((rating: number, key: number) => (
-          <React.Fragment key={key} >
-            <input onChange={handleRtingFieldChange} checked={newReview.rating === rating} className="form__rating-input visually-hidden" name="rating" value={rating} id={getRadionLabelId(rating)} type="radio" />
-            <label htmlFor={getRadionLabelId(rating)} className="reviews__rating-label form__rating-label" title="perfect">
-              <svg className="form__star-image" width="37" height="33">
-                <use xlinkHref="#icon-star"></use>
-              </svg>
-            </label>
-          </React.Fragment>
-        ))}
-
+        <RatingStar rating={1} />
+        <RatingStar rating={2} />
+        <RatingStar rating={3} />
+        <RatingStar rating={4} />
+        <RatingStar rating={5} />
       </div>
       <textarea onChange={handleTextFieldChange} value={newReview.text} className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"></textarea>
       <div className="reviews__button-wrapper">
