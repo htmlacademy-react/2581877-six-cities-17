@@ -1,3 +1,5 @@
+import { MapStartPosition } from './types';
+
 export enum AppRoute {
   Root = '/',
   Login = '/login',
@@ -11,3 +13,12 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+
+export const mapStartPosition: MapStartPosition = {
+  center: { lat: 52.3809553943508, lng: 4.8936781654840 },
+  zoom: 10,
+};
+
+export const URL_MARKER_DEFAULT = '/img/pin.svg';
+export const URL_MARKER_ACTIVE = '/img/pin-active.svg';
