@@ -3,7 +3,7 @@ export type HousingType = 'Apartament' | 'Room';
 
 export type OfferLocation = {
   lat: number;
-  lon: number;
+  lng: number;
 }
 
 
@@ -38,4 +38,7 @@ export type Offer = {
   maxAdult: number;
 }
 
-
+export type MapStartPosition = {
+  center: OfferLocation;
+  zoom: number;
+}

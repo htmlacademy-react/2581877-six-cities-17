@@ -1,17 +1,18 @@
 import OfferCard from '../offer-card/offer-card';
 import { Offer } from '../../types';
 import { useState } from 'react';
+import Map from '../map/map';
+import { mapStartPosition } from '../../const';
 
 type OffersListProps = {
   offers: Offer[];
 }
 
 function OffersList({ offers }: OffersListProps): JSX.Element {
-  const [activeOfferCardId, setActiveOfferCardId] = useState<number | null>(null);
+  const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
 
-  function changeHighlightOfferCard(offerId : number | null): void {
-    setActiveOfferCardId(offerId);
-    console.log(`highlight ${offerId === null ? 'nothing' : offerId}`);
+  function changeHighlightOfferCard(offer : Offer | null): void {
+    setActiveOffer(offer);
   }
 
   return (
@@ -41,7 +42,7 @@ function OffersList({ offers }: OffersListProps): JSX.Element {
         </div>
       </section>
       <div className="cities__right-section">
-        <section className="cities__map map"></section>
+        <Map startPosition={mapStartPosition} offers={offers} activeOffer={activeOffer}></Map>
       </div>
     </>
   );
