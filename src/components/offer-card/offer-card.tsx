@@ -5,14 +5,14 @@ import { ratingToPercent, getLinkToOffer } from '../../common';
 
 type OfferCardProps = {
   offer: Offer;
-  callback: (offerId: number | null) => void;
+  callback: (activeOffer: Offer | null) => void;
 }
 
 function OfferCard({ offer, callback }: OfferCardProps): JSX.Element {
   const linkToOffer:string = getLinkToOffer(offer.id);
   return (
     <article className="cities__card place-card"
-      onMouseEnter={() => callback(offer.id)}
+      onMouseEnter={() => callback(offer)}
       onMouseLeave={() => callback(null)}
     >
       {offer.isPremium ? (
