@@ -20,5 +20,10 @@ export const mapStartPosition: MapStartPosition = {
   zoom: 10,
 };
 
+export enum OfferListStyle {
+  Main = 'MAIN',
+  Nearby = 'NEARBY',
+}
+
 export const URL_MARKER_DEFAULT = '/img/pin.svg';
 export const URL_MARKER_ACTIVE = '/img/pin-active.svg';

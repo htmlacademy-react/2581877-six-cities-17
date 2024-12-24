@@ -36,9 +36,11 @@ export type Offer = {
   conveniences: OfferConveniences;
   roomsCount: number;
   maxAdult: number;
+  nearbyOffersId: number[];
 }
 
 export type MapStartPosition = {
   center: OfferLocation;
   zoom: number;
 }
+
