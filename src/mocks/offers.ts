@@ -16,6 +16,7 @@ export const offers: Offer[] = [
     conveniences: new Set<OfferСonvenience>(['Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat', 'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge']),
     roomsCount: 2,
     maxAdult: 4,
+    nearbyOffersId: [2,3,4],
   },
   {
     city: 'Amsterdam',
@@ -32,6 +33,7 @@ export const offers: Offer[] = [
     conveniences: new Set<OfferСonvenience>(['Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat', 'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge']),
     roomsCount: 2,
     maxAdult: 4,
+    nearbyOffersId: [1,3,4],
   },
   {
     id: 3,
@@ -48,6 +50,7 @@ export const offers: Offer[] = [
     conveniences: new Set<OfferСonvenience>(['Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat', 'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge']),
     roomsCount: 2,
     maxAdult: 4,
+    nearbyOffersId: [1,2,4],
   },
   {
     id: 4,
@@ -65,6 +68,7 @@ export const offers: Offer[] = [
     conveniences: new Set<OfferСonvenience>(['Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat', 'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge']),
     roomsCount: 2,
     maxAdult: 4,
+    nearbyOffersId: [1,2,3],
   },
   {
     id: 5,
@@ -81,5 +85,7 @@ export const offers: Offer[] = [
     conveniences: new Set<OfferСonvenience>(['Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat', 'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge']),
     roomsCount: 2,
     maxAdult: 4,
+    nearbyOffersId: [21,31,41],
+
   },
 ];

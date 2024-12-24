@@ -2,6 +2,8 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types';
 import OffersList from '../../components/offers-list/offers-list';
+import { mapStartPosition } from '../../const';
+import { OfferListStyle } from '../../const';
 
 type MainPageProps = {
   offers: Offer[];
@@ -86,7 +88,7 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
 
           <div className="cities">
             <div className="cities__places-container container">
-              <OffersList offers={offers} />
+              <OffersList offers={offers} mapStartPosition={mapStartPosition} offerListStyle={OfferListStyle.Main} />
             </div>
           </div>
         </main>
