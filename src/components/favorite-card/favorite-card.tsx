@@ -12,11 +12,11 @@ function FavoriteCard({ offer }: FavoriteCardProps): JSX.Element {
 
   return (
     <article className="favorites__card place-card">
-      {offer.isPremium ? (
+      {offer.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
-      ) : ''}
+      )}
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={linkToOffer}>
           <img className="place-card__image" src={offer.titleImage} width="150" height="110" alt="Place image" />
