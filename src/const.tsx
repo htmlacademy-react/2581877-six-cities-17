@@ -1,4 +1,3 @@
-import { MapStartPosition } from './types';
 
 export enum AppRoute {
   Root = '/',
@@ -13,12 +12,6 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
-
-
-export const mapStartPosition: MapStartPosition = {
-  center: { lat: 52.3809553943508, lng: 4.8936781654840 },
-  zoom: 10,
-};
 
 export enum OfferListStyle {
   Main = 'MAIN',
