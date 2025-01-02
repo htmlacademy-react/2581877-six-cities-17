@@ -32,7 +32,7 @@ function OffersListMain({ offers, mapStartPosition, activeOffer, changeHighlight
         <div className="cities__right-section">
           <Map startPosition={mapStartPosition} offers={offers} activeOffer={activeOffer} className='cities__map'></Map>
         </div>
-      </div>
+      </div> 
     </div>
 
   );
