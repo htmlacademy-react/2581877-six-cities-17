@@ -49,13 +49,14 @@ function Map({ startPosition, offers, activeOffer, className, circleRadius = 0 }
       const circle = new Circle(startPosition.center, circleRadius);
       circle.addTo(map);
 
+      map.setView(startPosition.center, startPosition.zoom);
 
       return () => {
         map.removeLayer(markerLayer);
         map.removeLayer(circle);
       };
     }
-  }, [map, offers, activeOffer, circleRadius, startPosition.center]);
+  }, [map, offers, activeOffer, circleRadius, startPosition]);
 
   return <section className={cn('map', className)} ref={mapRef}></section>;
 }
