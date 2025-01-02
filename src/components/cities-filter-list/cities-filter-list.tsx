@@ -8,6 +8,7 @@ type CitiesFilterListProps = {
   offers: Offer[];
 }
 
+
 export default function CitiesFilterList({ offers }: CitiesFilterListProps): JSX.Element {
   const dispatch = useAppDispatch();
   function switchCity(city: OfferCity): void {

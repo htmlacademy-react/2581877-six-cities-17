@@ -5,6 +5,7 @@ import OffersList from '../../components/offers-list/offers-list';
 import { OfferListStyle } from '../../const';
 import CitiesFilterList from '../../components/cities-filter-list/cities-filter-list';
 import { useAppSelector } from '../../hooks';
+import cn from 'classnames';
 
 type MainPageProps = {
   offers: Offer[];
@@ -12,6 +13,7 @@ type MainPageProps = {
 
 function MainPage({ offers }: MainPageProps): JSX.Element {
   const currentCityOffers = useAppSelector((state) => state.currentCityOffers);
+
   return (
     <>
       <Helmet>
@@ -46,7 +48,7 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
             </div>
           </div>
         </header>
-        <main className="page__main page__main--index">
+        <main className={cn('page__main page__main--index', { 'page__main--index-empty': currentCityOffers.length === 0 })}>
           <h1 className="visually-hidden">Cities</h1>
           <CitiesFilterList offers={offers} />
           <OffersList offers={currentCityOffers} offerListStyle={OfferListStyle.Main} />

@@ -19,7 +19,6 @@ type AppProps = {
   offers: Offer[];
 }
 
-
 function App({ offers }: AppProps): JSX.Element {
   return (
     <Provider store={store}>
