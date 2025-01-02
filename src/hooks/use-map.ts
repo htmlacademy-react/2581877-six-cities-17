@@ -7,8 +7,10 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, startPosition: Map
   const isRenderedRef = useRef<boolean>(false);
 
   useEffect(() => {
+
     if (mapRef.current !== null && !isRenderedRef.current) {
       const instance = new Map(mapRef.current, startPosition);
+
       const layer = new TileLayer(
         'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
         {
@@ -25,6 +27,7 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, startPosition: Map
       //NOTE - задать вопрос: почему в данном случае не нужно убивать экземпляр карты. Слой маркеров в компоненте map удаляется
       //return () => { instance.remove();}
     }
+
   }, [mapRef, startPosition]);
 
   return map;

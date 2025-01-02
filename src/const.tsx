@@ -1,4 +1,3 @@
-import { MapStartPosition } from './types';
 
 export enum AppRoute {
   Root = '/',
@@ -7,22 +6,22 @@ export enum AppRoute {
   Offer = '/offer/:id',
 }
 
-
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
 
-
-export const mapStartPosition: MapStartPosition = {
-  center: { lat: 52.3809553943508, lng: 4.8936781654840 },
-  zoom: 10,
-};
-
 export enum OfferListStyle {
   Main = 'MAIN',
   Nearby = 'NEARBY',
+}
+
+export enum SortBy {
+  Popular = 'Popular',
+  PriceLowToHigh = 'Price: low to high',
+  PriceHighToLow = 'Price: high to low',
+  TopRrated = 'Top rated first',
 }
 
 export const URL_MARKER_DEFAULT = '/img/pin.svg';

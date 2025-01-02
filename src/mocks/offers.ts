@@ -1,4 +1,4 @@
-import { Offer, OfferСonvenience } from '../types';
+import { Offer } from '../types';
 
 export const offers: Offer[] = [
   {
@@ -13,7 +13,7 @@ export const offers: Offer[] = [
     location: { lat: 52.3909553943508, lng: 4.85309666406198 },
     images: ['img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/studio-01.jpg', 'img/room.jpg', 'img/apartment-01.jpg'],
     titleImage: 'img/apartment-01.jpg',
-    conveniences: new Set<OfferСonvenience>(['Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat', 'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge']),
+    conveniences: ['Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat', 'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge'],
     roomsCount: 2,
     maxAdult: 4,
     nearbyOffersId: [2,3,4],
@@ -30,7 +30,7 @@ export const offers: Offer[] = [
     location: { lat: 52.3609553943508, lng: 4.85309666406198 },
     images: ['img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/studio-01.jpg', 'img/room.jpg', 'img/apartment-01.jpg'],
     titleImage: 'img/room.jpg',
-    conveniences: new Set<OfferСonvenience>(['Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat', 'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge']),
+    conveniences: ['Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat', 'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge'],
     roomsCount: 2,
     maxAdult: 4,
     nearbyOffersId: [1,3,4],
@@ -47,7 +47,7 @@ export const offers: Offer[] = [
     location: { lat: 52.3909553943508, lng: 4.929309666406198 },
     images: ['img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/studio-01.jpg', 'img/room.jpg', 'img/apartment-01.jpg'],
     titleImage: 'img/apartment-02.jpg',
-    conveniences: new Set<OfferСonvenience>(['Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat', 'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge']),
+    conveniences: ['Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat', 'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge'],
     roomsCount: 2,
     maxAdult: 4,
     nearbyOffersId: [1,2,4],
@@ -65,7 +65,7 @@ export const offers: Offer[] = [
     location: { lat: 52.3809553943508, lng: 4.939309666406198 },
     images: ['img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/studio-01.jpg', 'img/room.jpg', 'img/apartment-01.jpg'],
     titleImage: 'img/apartment-03.jpg',
-    conveniences: new Set<OfferСonvenience>(['Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat', 'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge']),
+    conveniences: ['Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat', 'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge'],
     roomsCount: 2,
     maxAdult: 4,
     nearbyOffersId: [1,2,3],
@@ -82,7 +82,7 @@ export const offers: Offer[] = [
     location: { lat: 0, lng: 0 },
     images: ['img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/studio-01.jpg', 'img/room.jpg', 'img/apartment-01.jpg'],
     titleImage: 'img/apartment-03.jpg',
-    conveniences: new Set<OfferСonvenience>(['Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat', 'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge']),
+    conveniences: ['Wi-Fi', 'Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Baby seat', 'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge'],
     roomsCount: 2,
     maxAdult: 4,
     nearbyOffersId: [21,31,41],
