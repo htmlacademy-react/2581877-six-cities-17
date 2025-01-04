@@ -1,20 +1,10 @@
-import { OfferCity, ОfferCities } from '../../types';
-import { Offer } from '../../types';
+import { ОfferCities } from '../../types';
 import CitiesFiterItem from '../cities-filter-item/cities-filter-item';
-import { filterByCityAction, fillOffersAction } from '../../store/actions';
+import { filterByCityAction } from '../../store/actions';
 import { useAppDispatch } from '../../hooks';
 
-type CitiesFilterListProps = {
-  offers: Offer[];
-}
-
-
-export default function CitiesFilterList({ offers }: CitiesFilterListProps): JSX.Element {
+export default function CitiesFilterList(): JSX.Element {
   const dispatch = useAppDispatch();
-  function switchCity(city: OfferCity): void {
-    dispatch(fillOffersAction(offers));
-    dispatch(filterByCityAction(city));
-  }
 
   return (
     <>
@@ -23,7 +13,13 @@ export default function CitiesFilterList({ offers }: CitiesFilterListProps): JSX
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              {ОfferCities.map((city) => <CitiesFiterItem city={city} key={city} onClickCallback={() => switchCity(city)} />)}
+              {ОfferCities.map((city) => (
+                <CitiesFiterItem
+                  city={city}
+                  key={city}
+                  onClickCallback={() => dispatch(filterByCityAction(city))}
+                />
+              ))}
             </ul>
           </section>
         </div>

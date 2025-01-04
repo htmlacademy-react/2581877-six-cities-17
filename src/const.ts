@@ -12,6 +12,7 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+
 export enum OfferListStyle {
   Main = 'MAIN',
   Nearby = 'NEARBY',
@@ -23,6 +24,10 @@ export enum SortBy {
   PriceHighToLow = 'Price: high to low',
   TopRrated = 'Top rated first',
 }
+
+export const APIRoutes = {
+  offersList: '/offers',
+};
 
 export const URL_MARKER_DEFAULT = '/img/pin.svg';
 export const URL_MARKER_ACTIVE = '/img/pin-active.svg';

@@ -1,18 +1,17 @@
 import { useRef, useEffect } from 'react';
 import { Icon, Marker, layerGroup } from 'leaflet';
-import { Offer, MapStartPosition } from '../../types';
 import { URL_MARKER_DEFAULT, URL_MARKER_ACTIVE } from '../../const';
 import useMap from '../../hooks/use-map';
 import cn from 'classnames';
 import 'leaflet/dist/leaflet.css';
-import { Circle } from 'leaflet';
+import { OfferPreview } from '../../types';
+import { Location } from '../../types';
 
 type MapProps = {
-  startPosition: MapStartPosition;
-  offers: Offer[];
+  startPosition: Location;
+  offersList: OfferPreview[];
   className: string;
-  activeOffer: Offer | null;
-  circleRadius?: number;
+  activeOffer: OfferPreview | null;
 };
 
 const defaultCustomIcon = new Icon({
@@ -27,36 +26,38 @@ const activeCustomIcon = new Icon({
   iconAnchor: [13, 39]
 });
 
-function Map({ startPosition, offers, activeOffer, className, circleRadius = 0 }: MapProps): JSX.Element {
+function Map({ startPosition, offersList, activeOffer, className}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, startPosition);
 
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
-      offers.forEach((offer) => {
-        const marker = new Marker(offer.location);
+      offersList.forEach((offerPreview) => {
+        const marker = new Marker({
+          lat: offerPreview.location.latitude,
+          lng: offerPreview.location.longitude,
+        });
         marker
           .setIcon(
-            activeOffer !== null && offer.id === activeOffer.id
+            activeOffer !== null && offerPreview.id === activeOffer.id
               ? activeCustomIcon
               : defaultCustomIcon
           )
           .addTo(markerLayer);
       });
 
-
-      const circle = new Circle(startPosition.center, circleRadius);
-      circle.addTo(map);
-
-      map.setView(startPosition.center, startPosition.zoom);
+      map.setView({
+        lat: startPosition.latitude,
+        lng: startPosition.longitude,
+      }, startPosition.zoom);
 
       return () => {
         map.removeLayer(markerLayer);
-        map.removeLayer(circle);
+
       };
     }
-  }, [map, offers, activeOffer, circleRadius, startPosition]);
+  }, [map, offersList, activeOffer, startPosition]);
 
   return <section className={cn('map', className)} ref={mapRef}></section>;
 }

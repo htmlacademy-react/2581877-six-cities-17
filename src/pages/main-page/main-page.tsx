@@ -1,18 +1,37 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { Offer } from '../../types';
 import OffersList from '../../components/offers-list/offers-list';
 import { OfferListStyle } from '../../const';
 import CitiesFilterList from '../../components/cities-filter-list/cities-filter-list';
 import { useAppSelector } from '../../hooks';
 import cn from 'classnames';
+import { OfferCity } from '../../types';
+import { SortBy } from '../../const';
+import { OfferPreview } from '../../types';
 
-type MainPageProps = {
-  offers: Offer[];
-}
+const sortOffers = (offersList: OfferPreview[], sortBy: SortBy): OfferPreview[] => {
+  switch (sortBy) {
+    case SortBy.PriceHighToLow:
+      return offersList.sort((a, b) => b.price - a.price);
+    case SortBy.PriceLowToHigh:
+      return offersList.sort((a, b) => a.price - b.price);
+    case SortBy.TopRrated:
+      return offersList.sort((a, b) => b.rating - a.rating);
+    default:
+      return offersList;
+  }
+};
 
-function MainPage({ offers }: MainPageProps): JSX.Element {
-  const currentCityOffers = useAppSelector((state) => state.currentCityOffers);
+const filterOffers = (offersList: OfferPreview[], city: OfferCity): OfferPreview[] =>
+  offersList.filter((offer) => offer.city.name === city);
+
+
+function MainPage(): JSX.Element {
+  const currentCity = useAppSelector((state) => state.currentCity);
+  const sortBy = useAppSelector((state) => state.sortBy);
+  let offersList = useAppSelector((state) => state.offersPreview);
+  offersList = filterOffers(offersList, currentCity);
+  offersList = sortOffers(offersList, sortBy);
 
   return (
     <>
@@ -48,10 +67,10 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
             </div>
           </div>
         </header>
-        <main className={cn('page__main page__main--index', { 'page__main--index-empty': currentCityOffers.length === 0 })}>
+        <main className={cn('page__main page__main--index', { 'page__main--index-empty': offersList.length === 0 })}>
           <h1 className="visually-hidden">Cities</h1>
-          <CitiesFilterList offers={offers} />
-          <OffersList offers={currentCityOffers} offerListStyle={OfferListStyle.Main} />
+          <CitiesFilterList />
+          <OffersList offersList={offersList} offerListStyle={OfferListStyle.Main} />
         </main>
       </div>
     </>

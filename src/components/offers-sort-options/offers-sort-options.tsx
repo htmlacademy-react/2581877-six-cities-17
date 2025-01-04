@@ -2,14 +2,11 @@ import { useState } from 'react';
 import cn from 'classnames';
 import OffersSortOption from '../offers-sort-option/offers-sort-option';
 import { useAppSelector } from '../../hooks';
-import { useAppDispatch } from '../../hooks';
 import { SortBy } from '../../const';
-import { sortByAction } from '../../store/actions';
 
 export default function OffersSortOptions(): JSX.Element {
   const [mouseHover, setMouseHover] = useState(false);
   const sortBy = useAppSelector((state) => state.sortBy);
-  const dispatch = useAppDispatch();
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -25,10 +22,10 @@ export default function OffersSortOptions(): JSX.Element {
         onMouseLeave={() => setMouseHover(false)}
         onClick={() => setMouseHover(false)}
       >
-        <OffersSortOption onClickHandle={() => {}} sortBy={SortBy.Popular} />
-        <OffersSortOption onClickHandle={() => dispatch(sortByAction.priceHighToLow()) } sortBy={SortBy.PriceHighToLow} />
-        <OffersSortOption onClickHandle={() => dispatch(sortByAction.priceLowToHigh()) } sortBy={SortBy.PriceLowToHigh} />
-        <OffersSortOption onClickHandle={() => dispatch(sortByAction.topRated()) } sortBy={SortBy.TopRrated} />
+        <OffersSortOption sortBy={SortBy.Popular} />
+        <OffersSortOption sortBy={SortBy.PriceHighToLow} />
+        <OffersSortOption sortBy={SortBy.PriceLowToHigh} />
+        <OffersSortOption sortBy={SortBy.TopRrated} />
       </ul>
     </form>
   );
