@@ -13,11 +13,13 @@ import { Provider } from 'react-redux';
 import { store } from '../../store';
 import { offers } from '../../mocks/offers';
 import { fetchOffersList } from '../../store/api-actions';
+import { fetchAuthorizationStatus } from '../../store/api-actions';
 
 const authorizationStatus: AuthorizationStatus = AuthorizationStatus.Auth;
 
 
 store.dispatch(fetchOffersList());
+store.dispatch(fetchAuthorizationStatus());
 
 function App(): JSX.Element {
   return (
@@ -29,7 +31,7 @@ function App(): JSX.Element {
               <Route index element={<MainPage />} />
               <Route path={AppRoute.Favorites}
                 element={
-                  <PrivateRoute authorizationStatus={authorizationStatus}>
+                  <PrivateRoute>
                     <FavoritesPage offers={offers} />
                   </PrivateRoute>
                 }

@@ -1,4 +1,3 @@
-
 export enum AppRoute {
   Root = '/',
   Login = '/login',
@@ -26,7 +25,10 @@ export enum SortBy {
 }
 
 export const APIRoutes = {
+  root: '/',
   offersList: '/offers',
+  login: '/login',
+  logout: '/logout'
 };
 
 export const URL_MARKER_DEFAULT = '/img/pin.svg';
