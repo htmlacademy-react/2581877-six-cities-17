@@ -2,48 +2,52 @@
 import { useState } from 'react';
 import React from 'react';
 import { Review } from '../../types';
-
-const emprtyReview: Review = {
-  text: '',
-  rating: 0,
-  date: new Date(0),
-  id: -1,
-};
-
+import { User } from '../../types';
+import { useAppDispatch } from '../../hooks';
+import { pushNewReviewsAction } from '../../store/api-actions';
+import { v4 as uuid } from 'uuid';
 
 type OfferReviewSubmitProps = {
-  addReviewCallback: (newReview: Review) => void;
+  user: User;
+  offerId: string;
 }
 
-function OfferReviewSubmit({ addReviewCallback }: OfferReviewSubmitProps): JSX.Element {
-  const [newReview, setNewReview] = useState(emprtyReview);
+function OfferReviewSubmit({offerId, user}: OfferReviewSubmitProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const [comment, setComment] = useState('');
+  const [rating, setRating] = useState(-1);
 
   const handleRtingFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const rating = Number(event.target.value);
-    setNewReview({ ...newReview, rating });
+    const ratingValue = Number(event.target.value);
+    setRating(ratingValue);
   };
 
   const handleTextFieldChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const text = event.target.value;
-    setNewReview({ ...newReview, text });
+    const commentValue = event.target.value;
+    setComment(commentValue);
   };
 
   const handleFormSubmit = (event: React.FormEvent<HTMLButtonElement>) => {
+    const newReview: Review = {
+      id: uuid(),
+      comment: comment.replace(/\s+/g, ' ').trim(),
+      rating,
+      date: new Date().toISOString(),
+      user,
+    };
     event.preventDefault();
-    let { text, date } = newReview;
-    date = new Date();
-    text = text.replace(/\s+/g, ' ').trim();
-    addReviewCallback({ ...newReview, date, text });
-    setNewReview(emprtyReview);
+    dispatch(pushNewReviewsAction({review: newReview, offerId}));
+    setComment('');
+    setRating(-1);
   };
 
-  const formIsValid = (): boolean => (newReview.text.length > 50) && (newReview.rating > 0);
-  const getRadionLabelId = (rating: number): string => `${rating}-star`;
+  const formIsValid = (): boolean => (comment.length > 50) && (comment.length < 300) && (rating > 0);
+  const getRadionLabelId = (labelRating: number): string => `${labelRating}-star`;
 
-  const RatingStar = ({ rating }: { rating: number }) => (
+  const RatingStar = (props: { rating: number }) => (
     <React.Fragment>
-      <input onChange={handleRtingFieldChange} checked={newReview.rating === rating} className="form__rating-input visually-hidden" name="rating" value={rating} id={getRadionLabelId(rating)} type="radio" />
-      <label htmlFor={getRadionLabelId(rating)} className="reviews__rating-label form__rating-label" title="perfect">
+      <input onChange={handleRtingFieldChange} checked={props.rating === rating} className="form__rating-input visually-hidden" name="rating" value={props.rating} id={getRadionLabelId(props.rating)} type="radio" />
+      <label htmlFor={getRadionLabelId(props.rating)} className="reviews__rating-label form__rating-label" title="perfect">
         <svg className="form__star-image" width="37" height="33">
           <use xlinkHref="#icon-star"></use>
         </svg>
@@ -63,7 +67,7 @@ function OfferReviewSubmit({ addReviewCallback }: OfferReviewSubmitProps): JSX.E
         <RatingStar rating={2} />
         <RatingStar rating={1} />
       </div>
-      <textarea onChange={handleTextFieldChange} value={newReview.text} className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"></textarea>
+      <textarea onChange={handleTextFieldChange} value={comment} className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.

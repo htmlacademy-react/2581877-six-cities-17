@@ -12,8 +12,6 @@ export default function Header({ children = null }: HeaderProps): JSX.Element {
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            {//TODO: header__logo-link--active только для главной страницы, и линк тоже
-            }
             {pathname === AppRoute.Root as string ? (
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
             ) : (

@@ -1,18 +1,21 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { OfferCity, Offer } from '../types';
-import { filterByCityAction, fillOffersAction, sortByAction, changeAuthorizationStatus } from './actions';
+import { OfferCity, Offer, Review } from '../types';
+import { filterByCityAction, fillOffersAction, sortByAction, changeAuthorizationStatusAction, loadOfferAction, loadOffersListAction, loadNearbyAction, loadReviewsAction, addNewReviewsAction } from './actions';
 import { SortBy } from '../const';
 import { OfferPreview } from '../types';
-import { loadOffersList } from './actions';
 import { AuthorizationStatus } from '../const';
 import { User } from '../types';
+import { OfferFull } from '../types';
+import { changeIsFavoriteAction } from './actions';
 
 type InitialState = {
   currentCity: OfferCity;
   offers: Offer[];
   sortBy: SortBy;
   offersPreview: OfferPreview[];
-  isLoaded: boolean;
+  offerFull: OfferFull | null | undefined;
+  offersNearby: OfferPreview[];
+  reviews: Review[];
   authorizationStatus: AuthorizationStatus;
   user: User | null;
 }
@@ -23,7 +26,9 @@ const initialState: InitialState = {
   offers: [],
   sortBy: SortBy.Popular,
   offersPreview: [],
-  isLoaded: false,
+  offersNearby: [],
+  offerFull: null,
+  reviews: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   user: null,
 };
@@ -43,12 +48,46 @@ const reducer = createReducer(initialState, (builder) => {
       state.sortBy = action.payload;
     })
 
-    .addCase(loadOffersList, (state, action) => {
+    .addCase(loadOffersListAction, (state, action) => {
       state.offersPreview = action.payload;
-      state.isLoaded = true;
     })
 
-    .addCase(changeAuthorizationStatus, (state, action) => {
+    .addCase(loadOfferAction, (state, action) => {
+      state.offerFull = action.payload;
+    })
+
+    .addCase(loadNearbyAction, (state, action) => {
+      state.offersNearby = action.payload;
+    })
+
+    .addCase(loadReviewsAction, (state, action) => {
+      state.reviews = action.payload;
+    })
+
+    .addCase(addNewReviewsAction, (state, action) => {
+      state.reviews.push(action.payload);
+    })
+
+    .addCase(changeIsFavoriteAction, (state, action) => {
+      const { offerId, isFavorite } = action.payload;
+      if (state.offerFull?.id === offerId) {
+        state.offerFull.isFavorite = isFavorite;
+      }
+      state.offersPreview = state.offersPreview.map((offer) => {
+        if (offer.id === offerId) {
+          offer.isFavorite = isFavorite;
+        }
+        return offer;
+      });
+      state.offersNearby = state.offersNearby.map((offer) => {
+        if (offer.id === offerId) {
+          offer.isFavorite = isFavorite;
+        }
+        return offer;
+      });
+    })
+
+    .addCase(changeAuthorizationStatusAction, (state, action) => {
       state.authorizationStatus = action.payload.authorizationStatus;
       state.user = action.payload.user;
     });

@@ -28,7 +28,11 @@ export const APIRoutes = {
   root: '/',
   offersList: '/offers',
   login: '/login',
-  logout: '/logout'
+  logout: '/logout',
+  offer: '/offers/{offerId}',
+  nearby: '/offers/{offerId}/nearby',
+  review: '/comments/{offerId}',
+  favorite: '/favorite/{offerId}/{status}',
 };
 
 export const URL_MARKER_DEFAULT = '/img/pin.svg';

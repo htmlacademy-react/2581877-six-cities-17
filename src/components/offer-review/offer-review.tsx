@@ -8,16 +8,16 @@ type OfferReviewProps = {
 
 function OfferReview({review}: OfferReviewProps): JSX.Element {
   const reviewTimeFormat = (date: Date): string => `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
-
+  const reviewDate = new Date(review.date);
 
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
-          <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar" />
+          <img className="reviews__avatar user__avatar" src={review.user.avatarUrl} width="54" height="54" alt="Reviews avatar" />
         </div>
         <span className="reviews__user-name">
-          Max
+          {review.user.name}
         </span>
       </div>
       <div className="reviews__info">
@@ -27,8 +27,8 @@ function OfferReview({review}: OfferReviewProps): JSX.Element {
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <p className="reviews__text">{review.text}</p>
-        <time className="reviews__time" dateTime={reviewTimeFormat(review.date)}>{review.date.toLocaleDateString()}</time>
+        <p className="reviews__text">{review.comment}</p>
+        <time className="reviews__time" dateTime={reviewTimeFormat(reviewDate)}>{reviewDate.toLocaleDateString()}</time>
       </div>
     </li>
   );

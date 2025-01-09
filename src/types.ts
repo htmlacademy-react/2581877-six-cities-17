@@ -7,6 +7,7 @@ export type OfferLocation = {
   lng: number;
 }
 
+export type OfferType = 'apartment' | 'room' | 'house' | 'hotel';
 export type Location = {
   latitude: number;
   longitude: number;
@@ -18,6 +19,12 @@ export type City = {
   location: Location;
 }
 
+export type Host = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+}
+
 export const ОfferCities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
 export type OfferCity = typeof ОfferCities[number];
 
@@ -25,10 +32,11 @@ export type OfferСonvenience = 'Wi-Fi' | 'Washing machine' | 'Towels' | 'Heatin
 export type OfferConveniences = OfferСonvenience[];
 
 export type Review = {
-  id: number;
-  text: string;
+  id: string;
+  date: string;
+  user: Host;
+  comment: string;
   rating: number;
-  date: Date;
 }
 
 export type OfferPreview = {
@@ -44,10 +52,25 @@ export type OfferPreview = {
   previewImage: string;
 }
 
-export type User = {
-  name: string;
-  avatarUrl: string;
-  isPro: boolean;
+export type OfferFull = {
+  id: string;
+  title: string;
+  type: OfferType;
+  price: number;
+  city: OfferCity;
+  location: Location;
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
+  description: string;
+  bedrooms: number;
+  goods: string[];
+  host: Host;
+  images: string[];
+  maxAdults: number;
+}
+
+export type User = Host & {
   email: string;
   token: string;
 }

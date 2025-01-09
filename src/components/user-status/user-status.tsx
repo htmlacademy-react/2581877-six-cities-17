@@ -4,6 +4,7 @@ import { logOutAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks';
 import { AppRoute } from '../../const';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 export default function UserStatus(): JSX.Element {
@@ -19,12 +20,12 @@ export default function UserStatus(): JSX.Element {
         {authorizationStatus === AuthorizationStatus.Auth ? (
           <>
             <li className="header__nav-item user">
-              <a className="header__nav-link header__nav-link--profile" href="#">
+              <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
                 <div className="header__avatar-wrapper user__avatar-wrapper">
                 </div>
-                <span className="header__user-name user__name">{user?.name}</span>
+                <span className="header__user-name user__name">{user?.email}</span>
                 <span className="header__favorite-count">3</span>
-              </a>
+              </Link>
             </li>
             <li className="header__nav-item">
               <a className="header__nav-link" href="#"
@@ -33,7 +34,6 @@ export default function UserStatus(): JSX.Element {
                     dispatch(logOutAction());
                     e.preventDefault();
                   }
-
                 }
               >
                 <span className="header__signout">Sign out</span>
