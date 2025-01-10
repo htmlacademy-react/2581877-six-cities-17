@@ -51,7 +51,6 @@ function LoginPage(): JSX.Element {
 
       <div className="page page--gray page--login">
         <Header />
-
         <main className="page__main page__main--login">
           <div className="page__login-container container">
             <section className="login">

@@ -12,13 +12,13 @@ import PrivateRoute from '../private-route/private-route';
 import { Provider } from 'react-redux';
 import { store } from '../../store';
 import { offers } from '../../mocks/offers';
-import { fetchOffersList } from '../../store/api-actions';
+import { fetchOffersListAction } from '../../store/api-actions';
 import { fetchAuthorizationStatus } from '../../store/api-actions';
 
 const authorizationStatus: AuthorizationStatus = AuthorizationStatus.Auth;
 
 
-store.dispatch(fetchOffersList());
+store.dispatch(fetchOffersListAction());
 store.dispatch(fetchAuthorizationStatus());
 
 function App(): JSX.Element {

@@ -14,7 +14,7 @@ type OffersListProps = {
 
 function OffersList({ offersList, offerListStyle }: OffersListProps): JSX.Element {
   const [activeOffer, setActiveOffer] = useState<OfferPreview | null>(null);
-  const isLoaded = useAppSelector((state) => state.isLoaded);
+  const isLoaded = useAppSelector((state) => state.offersPreview).length > 0;
   function onHoverCallback(offer: OfferPreview | null): void {
     setActiveOffer(offer);
   }

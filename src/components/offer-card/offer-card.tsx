@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ratingToPercent, getLinkToOffer } from '../../common';
 import cn from 'classnames';
 import { OfferPreview } from '../../types';
+import BookmarkButton from '../bookmark-button/bookmark-button';
 
 type OfferCardProps = {
   offer: OfferPreview;
@@ -11,6 +12,8 @@ type OfferCardProps = {
 
 function OfferCard({ offer, onHoverCallback, className }: OfferCardProps): JSX.Element {
   const linkToOffer: string = getLinkToOffer(offer.id);
+
+
   return (
     <article className={cn('place-card',className)}
       onMouseEnter={() => onHoverCallback(offer)}
@@ -32,12 +35,8 @@ function OfferCard({ offer, onHoverCallback, className }: OfferCardProps): JSX.E
             <b className="place-card__price-value">&euro;{offer.price.toString()}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={cn('place-card__bookmark-button button',{ 'place-card__bookmark-button--active': offer.isFavorite })} type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <BookmarkButton offerId={offer.id} isFavorite={offer.isFavorite} elementStyle={'place-card'} />
+
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
