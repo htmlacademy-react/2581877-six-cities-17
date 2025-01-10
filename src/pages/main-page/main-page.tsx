@@ -1,5 +1,4 @@
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
 import OffersList from '../../components/offers-list/offers-list';
 import { OfferListStyle } from '../../const';
 import CitiesFilterList from '../../components/cities-filter-list/cities-filter-list';
@@ -8,6 +7,8 @@ import cn from 'classnames';
 import { OfferCity } from '../../types';
 import { SortBy } from '../../const';
 import { OfferPreview } from '../../types';
+import Header from '../../components/header/header';
+import UserStatus from '../../components/user-status/user-status';
 
 const sortOffers = (offersList: OfferPreview[], sortBy: SortBy): OfferPreview[] => {
   switch (sortBy) {
@@ -39,34 +40,9 @@ function MainPage(): JSX.Element {
         <title>6 cities</title>
       </Helmet>
       <div className="page page--gray page--main">
-        <header className="header">
-          <div className="container">
-            <div className="header__wrapper">
-              <div className="header__left">
-                <Link className="header__logo-link header__logo-link--active" to="/">
-                  <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-                </Link>
-              </div>
-              <nav className="header__nav">
-                <ul className="header__nav-list">
-                  <li className="header__nav-item user">
-                    <a className="header__nav-link header__nav-link--profile" href="#">
-                      <div className="header__avatar-wrapper user__avatar-wrapper">
-                      </div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                      <span className="header__favorite-count">3</span>
-                    </a>
-                  </li>
-                  <li className="header__nav-item">
-                    <a className="header__nav-link" href="#">
-                      <span className="header__signout">Sign out</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </header>
+        <Header>
+          <UserStatus />
+        </Header>
         <main className={cn('page__main page__main--index', { 'page__main--index-empty': offersList.length === 0 })}>
           <h1 className="visually-hidden">Cities</h1>
           <CitiesFilterList />
