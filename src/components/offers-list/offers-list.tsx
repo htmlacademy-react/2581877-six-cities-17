@@ -1,34 +1,38 @@
-import { Offer } from '../../types';
 import { useState } from 'react';
 import { OfferListStyle } from '../../const';
 import OffersListMain from './offers-list-main';
 import OffersListNearby from './offers-list-nearby';
-import { citiesMapStartPosition } from '../../mocks/mapPosition';
-import { useAppSelector } from '../../hooks';
 import OfferListEmpty from '../offer-list-empty/offer-list-empty';
+import { OfferPreview } from '../../types';
+import { useAppSelector } from '../../hooks';
+import Spinner from '../spinner/spinner';
 
 type OffersListProps = {
-  offers: Offer[];
+  offersList: OfferPreview[];
   offerListStyle: OfferListStyle;
 }
 
-function OffersList({ offers, offerListStyle }: OffersListProps): JSX.Element {
-  const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
-  function changeHighlightOfferCard(offer: Offer | null): void {
+function OffersList({ offersList, offerListStyle }: OffersListProps): JSX.Element {
+  const [activeOffer, setActiveOffer] = useState<OfferPreview | null>(null);
+  const isLoaded = useAppSelector((state) => state.isLoaded);
+  function onHoverCallback(offer: OfferPreview | null): void {
     setActiveOffer(offer);
   }
 
-  const currentCity = useAppSelector((state) => state.currentCity);
 
   switch (offerListStyle) {
     case OfferListStyle.Main:
-      if (offers.length === 0) {
-        return <OfferListEmpty />;
+      if (isLoaded) {
+        if (offersList.length === 0) {
+          return <OfferListEmpty />;
+        } else {
+          return <OffersListMain offersList={offersList} mapStartPosition={offersList[0].city.location} activeOffer={activeOffer} onHoverCallback={onHoverCallback} />;
+        }
       } else {
-        return <OffersListMain offers={offers} mapStartPosition={citiesMapStartPosition[currentCity]} activeOffer={activeOffer} changeHighlightCallback={changeHighlightOfferCard} />;
+        return <Spinner/>;
       }
     case OfferListStyle.Nearby:
-      return <OffersListNearby offers={offers} mapStartPosition={citiesMapStartPosition[currentCity]} activeOffer={activeOffer} changeHighlightCallback={changeHighlightOfferCard} />;
+      return <OffersListNearby offersList={offersList} mapStartPosition={offersList[0].city.location} activeOffer={activeOffer} onHoverCallback={onHoverCallback} />;
   }
 
 }

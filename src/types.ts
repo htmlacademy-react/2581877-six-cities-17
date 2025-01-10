@@ -2,10 +2,20 @@ import { store } from './store';
 
 export type HousingType = 'Apartament' | 'Room';
 
-
 export type OfferLocation = {
   lat: number;
   lng: number;
+}
+
+export type Location = {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+}
+
+export type City = {
+  name: string;
+  location: Location;
 }
 
 export const ОfferCities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
@@ -21,6 +31,19 @@ export type Review = {
   date: Date;
 }
 
+export type OfferPreview = {
+  id: string;
+  title: string;
+  type: string;
+  price: number;
+  city: City;
+  location: Location;
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
+  previewImage: string;
+}
+
 export type Offer = {
   id: number;
   city: OfferCity;
@@ -30,7 +53,7 @@ export type Offer = {
   housingType: HousingType;
   isMarked: boolean;
   isPremium: boolean;
-  location: OfferLocation;
+  location: Location;
   images: string[];
   titleImage: string;
   conveniences: OfferConveniences;
@@ -40,7 +63,7 @@ export type Offer = {
 }
 
 export type MapStartPosition = {
-  center: OfferLocation;
+  center: Location;
   zoom: number;
 }
 

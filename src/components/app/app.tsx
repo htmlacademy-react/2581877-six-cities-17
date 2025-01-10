@@ -7,26 +7,26 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import Page404 from '../../pages/page-404/page-404';
 
 import { HelmetProvider } from 'react-helmet-async';
-import { Offer } from '../../types';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import { Provider } from 'react-redux';
 import { store } from '../../store';
+import { offers } from '../../mocks/offers';
+import { fetchOffersList } from '../../store/api-actions';
 
 const authorizationStatus: AuthorizationStatus = AuthorizationStatus.Auth;
 
-type AppProps = {
-  offers: Offer[];
-}
 
-function App({ offers }: AppProps): JSX.Element {
+store.dispatch(fetchOffersList());
+
+function App(): JSX.Element {
   return (
     <Provider store={store}>
       <HelmetProvider>
         <BrowserRouter>
           <Routes>
             <Route path={AppRoute.Root}>
-              <Route index element={<MainPage offers={offers} />} />
+              <Route index element={<MainPage />} />
               <Route path={AppRoute.Favorites}
                 element={
                   <PrivateRoute authorizationStatus={authorizationStatus}>
