@@ -1,3 +1,5 @@
+import { store } from './store';
+
 export type HousingType = 'Apartament' | 'Room';
 
 
@@ -6,13 +8,11 @@ export type OfferLocation = {
   lng: number;
 }
 
+export const ОfferCities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
+export type OfferCity = typeof ОfferCities[number];
 
-export type OfferCity = 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf';
-
-export type OfferСonvenience = 'Wi-Fi' | 'Washing machine' | 'Towels' |
-  'Heating' | 'Coffee machine' | 'Baby seat' | 'Kitchen' | 'Dishwasher' | 'Cabel TV' | 'Fridge';
-
-export type OfferConveniences = Set<OfferСonvenience>;
+export type OfferСonvenience = 'Wi-Fi' | 'Washing machine' | 'Towels' | 'Heating' | 'Coffee machine' | 'Baby seat' | 'Kitchen' | 'Dishwasher' | 'Cabel TV' | 'Fridge';
+export type OfferConveniences = OfferСonvenience[];
 
 export type Review = {
   id: number;
@@ -44,3 +44,9 @@ export type MapStartPosition = {
   zoom: number;
 }
 
+export type CitiesMapStartPosition = {
+  [K in typeof ОfferCities[number]]: MapStartPosition
+};
+
+export type State = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

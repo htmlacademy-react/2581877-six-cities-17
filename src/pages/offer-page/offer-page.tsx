@@ -5,9 +5,8 @@ import { Offer, OfferСonvenience } from '../../types';
 import Page404 from '../page-404/page-404';
 import { ratingToPercent } from '../../common';
 import OfferReviewsList from '../../components/offer-reviews-list/offer-reviews-list';
-import { AuthorizationStatus, mapStartPosition } from '../../const';
+import { AuthorizationStatus } from '../../const';
 import cn from 'classnames';
-import { MapStartPosition } from '../../types';
 import OffersList from '../../components/offers-list/offers-list';
 import { OfferListStyle } from '../../const';
 
@@ -31,11 +30,6 @@ function OfferPage({ offers, authorizationStatus }: OfferPageProps): JSX.Element
 
 
   const offersNearby = offers.filter((iteration: Offer) => iteration.nearbyOffersId.includes(offer.id)).slice(0, 3);
-
-  const mapPosition: MapStartPosition = {
-    center: offer.location,
-    zoom: mapStartPosition.zoom,
-  };
 
 
   return (
@@ -156,7 +150,7 @@ function OfferPage({ offers, authorizationStatus }: OfferPageProps): JSX.Element
 
           </section>
 
-          {offersNearby.length > 0 && <OffersList offers={offersNearby} mapStartPosition={mapPosition} offerListStyle={OfferListStyle.Nearby} />}
+          {offersNearby.length > 0 && <OffersList offers={offersNearby} offerListStyle={OfferListStyle.Nearby} />}
 
         </main >
       </div >

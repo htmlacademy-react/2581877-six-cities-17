@@ -2,6 +2,7 @@ import { Offer } from '../../types';
 import OfferCard from '../offer-card/offer-card';
 import Map from '../map/map';
 import { MapStartPosition } from '../../types';
+import { useAppSelector } from '../../hooks';
 
 type OffersListMainProps = {
   offers: Offer[];
@@ -12,11 +13,12 @@ type OffersListMainProps = {
 
 
 function OffersListMain({ offers, mapStartPosition, activeOffer, changeHighlightCallback }: OffersListMainProps): JSX.Element {
+  const currentCity = useAppSelector((state) => state.currentCity);
   return (
     <>
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
-        <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+        <b className="places__found">{offers.length} places to stay in {currentCity}</b>
         <form className="places__sorting" action="#" method="get">
           <span className="places__sorting-caption">Sort by&nbsp;</span>
           <span className="places__sorting-type" tabIndex={0}>
