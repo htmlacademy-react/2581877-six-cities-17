@@ -24,15 +24,21 @@ export enum SortBy {
   TopRrated = 'Top rated first',
 }
 
-export const APIRoutes = {
-  root: '/',
-  offersList: '/offers',
-  login: '/login',
-  logout: '/logout',
-  offer: '/offers/{offerId}',
-  nearby: '/offers/{offerId}/nearby',
-  review: '/comments/{offerId}',
-  favorite: '/favorite/{offerId}/{status}',
+export enum APIRoutes  {
+  root= '/',
+  offersList= '/offers',
+  login= '/login',
+  logout= '/logout',
+  offer= '/offers/{offerId}',
+  nearby= '/offers/{offerId}/nearby',
+  review= '/comments/{offerId}',
+  favorite= '/favorite/{offerId}/{status}',
+};
+
+export enum NameSpace  {
+  User = 'USER',
+  OfferPreview = 'OFFERPREVIEW',
+  OfferFull = 'OFFERFULL',
 };
 
 export const URL_MARKER_DEFAULT = '/img/pin.svg';

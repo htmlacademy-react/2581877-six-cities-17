@@ -9,6 +9,7 @@ import { SortBy } from '../../const';
 import { OfferPreview } from '../../types';
 import Header from '../../components/header/header';
 import UserStatus from '../../components/user-status/user-status';
+import { getCurrentCity, getOffersList, getSortOption } from '../../store/offers-list-data/selectors';
 
 const sortOffers = (offersList: OfferPreview[], sortBy: SortBy): OfferPreview[] => {
   switch (sortBy) {
@@ -28,9 +29,10 @@ const filterOffers = (offersList: OfferPreview[], city: OfferCity): OfferPreview
 
 
 function MainPage(): JSX.Element {
-  const currentCity = useAppSelector((state) => state.currentCity);
-  const sortBy = useAppSelector((state) => state.sortBy);
-  let offersList = useAppSelector((state) => state.offersPreview);
+  const currentCity = useAppSelector(getCurrentCity);
+  const sortBy = useAppSelector(getSortOption);
+  let offersList = useAppSelector(getOffersList);
+  
   offersList = filterOffers(offersList, currentCity);
   offersList = sortOffers(offersList, sortBy);
 

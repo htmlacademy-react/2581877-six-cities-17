@@ -5,8 +5,10 @@ import OfferReview from '../offer-review/offer-review';
 import { useAppSelector } from '../../hooks';
 import { useAppDispatch } from '../../hooks';
 import { useEffect } from 'react';
-import { fetchReviewsAction } from '../../store/api-actions';
-import { loadReviewsAction } from '../../store/actions';
+import { getAuthorizationStatus, getUser } from '../../store/user-process/selectors';
+import { clearReviews } from '../../store/offer-data/offer-data';
+import { fetchReviews } from '../../store/api-actions';
+import { getOfferReviews } from '../../store/offer-data/selectors';
 
 type OfferReviewsListProps = {
   offerId: string;
@@ -14,18 +16,18 @@ type OfferReviewsListProps = {
 
 function OfferReviewsList({offerId}: OfferReviewsListProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const user = useAppSelector((state) => state.user);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const user = useAppSelector(getUser);
 
 
   let reviewsList: Review[] = [];
   useEffect(() => {
-    dispatch(fetchReviewsAction({ id: offerId }));
+    dispatch(fetchReviews({ id: offerId }));
     return () => {
-      dispatch(loadReviewsAction([]));
+      dispatch(clearReviews());
     };
   }, [dispatch, offerId]);
-  reviewsList = useAppSelector((state) => state.reviews);
+  reviewsList = useAppSelector(getOfferReviews);
 
   return (
     <section className="offer__reviews reviews">
