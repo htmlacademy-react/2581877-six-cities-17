@@ -32,7 +32,8 @@ export enum APIRoutes {
   offer = '/offers/{offerId}',
   nearby = '/offers/{offerId}/nearby',
   review = '/comments/{offerId}',
-  favorite = '/favorite/{offerId}/{status}',
+  favoriteStatus = '/favorite/{offerId}/{status}',
+  favorite = '/favorite',
 }
 
 export enum NameSpace {

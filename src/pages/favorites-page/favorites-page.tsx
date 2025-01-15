@@ -1,6 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 import { Offer, OfferCity } from '../../types';
 import FavoriteCard from '../../components/favorite-card/favorite-card';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchFavorites } from '../../store/api-actions';
+import { useState } from 'react';
+import { getFavorites } from '../../store/user-process/selectors';
 
 type FavoritesPageProps = {
   offers: Offer[];

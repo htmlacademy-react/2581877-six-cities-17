@@ -1,18 +1,20 @@
 import { NameSpace } from '../../const';
-import { fetchAuthorizationStatus, logInAction, logOutAction } from '../api-actions';
+import { fetchAuthorizationStatus, fetchFavorites, logInAction, logOutAction } from '../api-actions';
 import { createSlice } from '@reduxjs/toolkit';
 
 import { AuthorizationStatus } from '../../const';
-import { User } from '../../types';
+import { OfferPreview, User } from '../../types';
 
 type InitialState = {
   authorizationStatus: AuthorizationStatus;
   user: User | null;
+  favorites: OfferPreview[];
 }
 
 const initialState: InitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   user: null,
+  favorites: []
 };
 
 export const userProcess = createSlice({
@@ -28,6 +30,7 @@ export const userProcess = createSlice({
       .addCase(fetchAuthorizationStatus.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
         state.user = null;
+        state.favorites = [];
       })
       .addCase(logInAction.fulfilled, (state, action) => {
         state.authorizationStatus = AuthorizationStatus.Auth;
@@ -36,10 +39,15 @@ export const userProcess = createSlice({
       .addCase(logInAction.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
         state.user = null;
+        state.favorites = [];
       })
       .addCase(logOutAction.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
         state.user = null;
+        state.favorites = [];
+      })
+      .addCase(fetchFavorites.fulfilled, (state, action) => {
+        state.favorites = action.payload;
       });
   }
 });

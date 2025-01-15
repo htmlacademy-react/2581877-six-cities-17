@@ -98,6 +98,10 @@ export type MapStartPosition = {
   zoom: number;
 }
 
+export type CategorizedOffers = {
+  [cityName in OfferCity]?: OfferPreview[];
+};
+
 export type CitiesMapStartPosition = {
   [K in typeof ОfferCities[number]]: MapStartPosition
 };
