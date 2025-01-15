@@ -13,13 +13,13 @@ import UserStatus from '../../components/user-status/user-status';
 import OfferInfo from '../../components/offer-info/offer-info';
 import Spinner from '../../components/spinner/spinner';
 import OffersList from '../../components/offers-list/offers-list';
-import { clearOffer,clearReviews, clearOfferNearBy } from '../../store/offer-data/offer-data';
-import { getOffer, getOfferNearBy } from '../../store/offer-data/selectors';
+import { clearOffer, clearOfferNearBy } from '../../store/offer-data/offer-data';
+import { getOffer, getOfferNearBy, hasOfferFetchError } from '../../store/offer-data/selectors';
 
 function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const { id } = useParams();
-
+  const hasError = useAppSelector(hasOfferFetchError);
 
   let offer: OfferFull | null | undefined = null;
   useEffect(() => {
@@ -43,12 +43,9 @@ function OfferPage(): JSX.Element {
   }, [dispatch, id]);
   offersNearby = useAppSelector(getOfferNearBy);
 
-  if (id === undefined || offer === undefined) {
+  if (id === undefined || hasError) {
     return (<Page404 />);
   }
-
-
-
 
   return (
     <>

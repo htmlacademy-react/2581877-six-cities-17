@@ -8,11 +8,14 @@ import { useAppDispatch } from '../../hooks';
 import { logInAction } from '../../store/api-actions';
 import { AuthorizationStatus } from '../../const';
 import { useNavigate } from 'react-router-dom';
+import { getCurrentCity } from '../../store/offers-list-data/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { useEffect } from 'react';
 
 function LoginPage(): JSX.Element {
-  const currentCity = useAppSelector((state) => state.currentCity);
+  const currentCity = useAppSelector(getCurrentCity);
   const navigate = useNavigate();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
 
   const [email, setEmail] = useState('');
@@ -39,9 +42,12 @@ function LoginPage(): JSX.Element {
     event.preventDefault();
   };
 
-  if(authorizationStatus === AuthorizationStatus.Auth) {
-    navigate(AppRoute.Root);
-  }
+
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      navigate(AppRoute.Root);
+    }
+  }, [authorizationStatus, navigate]);
 
   return (
     <>

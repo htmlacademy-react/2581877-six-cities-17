@@ -5,13 +5,14 @@ import { useAppDispatch } from '../../hooks';
 import { AppRoute } from '../../const';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
+import { getUser } from '../../store/user-process/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 export default function UserStatus(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const user = useAppSelector((state) => state.user);
+  const user = useAppSelector(getUser);
 
 
   return (

@@ -4,14 +4,15 @@ import { URL_MARKER_DEFAULT, URL_MARKER_ACTIVE } from '../../const';
 import useMap from '../../hooks/use-map';
 import cn from 'classnames';
 import 'leaflet/dist/leaflet.css';
-import { OfferPreview } from '../../types';
+import { OfferFull, OfferPreview } from '../../types';
 import { Location } from '../../types';
 
 type MapProps = {
   startPosition: Location;
   offersList: OfferPreview[];
   className: string;
-  activeOffer: OfferPreview | null;
+  activeOffer?: OfferPreview | null;
+  currentOffer?: OfferFull | null;
 };
 
 const defaultCustomIcon = new Icon({
@@ -26,7 +27,7 @@ const activeCustomIcon = new Icon({
   iconAnchor: [13, 39]
 });
 
-function Map({ startPosition, offersList, activeOffer, className}: MapProps): JSX.Element {
+function Map({ startPosition, offersList, activeOffer = null, currentOffer = null, className }: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, startPosition);
 
@@ -34,11 +35,11 @@ function Map({ startPosition, offersList, activeOffer, className}: MapProps): JS
     if (map) {
       const markerLayer = layerGroup().addTo(map);
       offersList.forEach((offerPreview) => {
-        const marker = new Marker({
+        const hoverMarker = new Marker({
           lat: offerPreview.location.latitude,
           lng: offerPreview.location.longitude,
         });
-        marker
+        hoverMarker
           .setIcon(
             activeOffer !== null && offerPreview.id === activeOffer.id
               ? activeCustomIcon
@@ -46,6 +47,16 @@ function Map({ startPosition, offersList, activeOffer, className}: MapProps): JS
           )
           .addTo(markerLayer);
       });
+
+      if (currentOffer !== null) {
+        const currentMarker = new Marker({
+          lat: currentOffer.location.latitude,
+          lng: currentOffer.location.longitude,
+        });
+        currentMarker
+          .setIcon(activeCustomIcon)
+          .addTo(markerLayer);
+      }
 
       map.setView({
         lat: startPosition.latitude,
@@ -57,7 +68,7 @@ function Map({ startPosition, offersList, activeOffer, className}: MapProps): JS
 
       };
     }
-  }, [map, offersList, activeOffer, startPosition]);
+  }, [map, offersList, activeOffer, startPosition, currentOffer]);
 
   return <section className={cn('map', className)} ref={mapRef}></section>;
 }

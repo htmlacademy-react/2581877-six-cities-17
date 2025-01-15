@@ -1,7 +1,7 @@
 import { NameSpace } from '../../const';
 import { fetchOffersList } from '../api-actions';
 import { createSlice } from '@reduxjs/toolkit';
-import { OfferPreview } from '../../types';
+import { OfferFull, OfferPreview } from '../../types';
 import { OfferCity } from '../../types';
 import { SortBy } from '../../const';
 import { PayloadAction } from '@reduxjs/toolkit';
@@ -17,9 +17,7 @@ const initialState: InitialState = {
   currentCity: 'Paris',
   offersList: [],
   sortBy: SortBy.Popular,
-}
-
-
+};
 
 export const offersListData = createSlice({
   name: NameSpace.OfferPreview,
@@ -32,21 +30,20 @@ export const offersListData = createSlice({
     filterByCity: (state, action: PayloadAction<OfferCity>) => {
       state.currentCity = action.payload;
     },
-
+    updateFavorites: (state, action: PayloadAction<OfferFull>) => {
+      const offer = action.payload;
+      const index = state.offersList.findIndex((element) => element.id === offer.id);
+      if(index > -1) {
+        state.offersList[index].isFavorite = offer.isFavorite;
+      }
+    }
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchOffersList.pending, (state) => {
-
-      })
       .addCase(fetchOffersList.fulfilled, (state, action) => {
         state.offersList = action.payload;
-      })
-      .addCase(fetchOffersList.rejected, (state) => {
-
       });
   }
 });
 
-
-export const { sortByAction, filterByCity } = offersListData.actions;
+export const { sortByAction, filterByCity, updateFavorites } = offersListData.actions;

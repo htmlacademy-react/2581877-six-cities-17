@@ -4,6 +4,7 @@ import Map from '../map/map';
 import { useAppSelector } from '../../hooks';
 import OffersSortOptions from '../offers-sort-options/offers-sort-options';
 import { OfferPreview } from '../../types';
+import { getCurrentCity } from '../../store/offers-list-data/selectors';
 
 type OffersListMainProps = {
   offersList: OfferPreview[];
@@ -14,7 +15,7 @@ type OffersListMainProps = {
 
 
 function OffersListMain({ offersList, mapStartPosition, activeOffer, onHoverCallback }: OffersListMainProps): JSX.Element {
-  const currentCity = useAppSelector((state) => state.currentCity);
+  const currentCity = useAppSelector(getCurrentCity);
   return (
 
     <div className="cities">

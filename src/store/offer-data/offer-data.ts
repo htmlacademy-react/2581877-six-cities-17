@@ -1,5 +1,5 @@
 import { NameSpace } from '../../const';
-import { fetchOffer, fetchNearby, fetchReviews, pushNewReviews, pushIsFavoriteAction } from '../api-actions';
+import { fetchOffer, fetchNearby, fetchReviews, pushNewReviews } from '../api-actions';
 import { createSlice } from '@reduxjs/toolkit';
 import { OfferPreview } from '../../types';
 import { OfferFull } from '../../types';
@@ -8,6 +8,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 
 type InitialState = {
   offerFull: OfferFull | null;
+  hasFetchError: boolean;
   offersNearby: OfferPreview[];
   reviews: Review[];
 }
@@ -15,15 +16,13 @@ type InitialState = {
 
 const initialState: InitialState = {
   offerFull: null,
+  hasFetchError: false,
   offersNearby: [],
   reviews: [],
 };
 
-
-
-
 export const offerData = createSlice({
-  name: NameSpace.OfferPreview,
+  name: NameSpace.OfferFull,
   initialState,
   reducers: {
     clearOffer: (state) => {
@@ -35,53 +34,45 @@ export const offerData = createSlice({
     clearReviews: (state) => {
       state.reviews = [];
     },
+    updateFavorites: (state, action: PayloadAction<OfferFull>) => {
+      const offer = action.payload;
+      const index = state.offersNearby.findIndex((element) => element.id === offer.id);
+      if (index > -1) {
+        state.offersNearby[index].isFavorite = offer.isFavorite;
+      }
+      if (state.offerFull) {
+        state.offerFull.isFavorite = offer.isFavorite;
+      }
+    }
   },
   extraReducers(builder) {
     builder
       .addCase(fetchOffer.pending, (state) => {
+        state.hasFetchError = false;
       })
+
       .addCase(fetchOffer.fulfilled, (state, action) => {
         state.offerFull = action.payload;
       })
+
       .addCase(fetchOffer.rejected, (state) => {
+        state.hasFetchError = true;
       })
 
-      .addCase(fetchNearby.pending, (state) => {
-      })
       .addCase(fetchNearby.fulfilled, (state, action) => {
         state.offersNearby = action.payload.slice(0, 3);
       })
-      .addCase(fetchNearby.rejected, (state) => {
-      })
 
-      .addCase(fetchReviews.pending, (state) => {
-      })
       .addCase(fetchReviews.fulfilled, (state, action) => {
         state.reviews = action.payload;
       })
-      .addCase(fetchReviews.rejected, (state) => {
-      })
-
-      .addCase(pushNewReviews.pending, (state) => {
-      })
 
       .addCase(pushNewReviews.fulfilled, (state, action) => {
-      })
-
-      .addCase(pushNewReviews.rejected, (state) => {
-      })
-
-      .addCase(pushIsFavoriteAction.pending, (state) => {
-      })
-
-      .addCase(pushIsFavoriteAction.fulfilled, (state, action) => {
-      })
-
-      .addCase(pushIsFavoriteAction.rejected, (state) => {
+        state.reviews.push(action.payload);
       });
-    }
+
   }
-);
+});
 
 
-export const { clearOffer, clearOfferNearBy, clearReviews } = offerData.actions;
+export const { clearOffer, clearOfferNearBy, clearReviews, updateFavorites } = offerData.actions;

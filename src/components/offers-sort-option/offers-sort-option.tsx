@@ -9,7 +9,7 @@ type OffersSortOptionProps = {
 }
 
 export default function OffersSortOption({ sortBy }: OffersSortOptionProps): JSX.Element {
-  const isActive = useAppSelector(getSortOption);
+  const isActive = sortBy === useAppSelector(getSortOption);
   const dispatch = useAppDispatch();
 
   return (

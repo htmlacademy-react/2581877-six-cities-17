@@ -8,7 +8,7 @@ import { User } from '../types';
 import { dropToken, setToken } from '../services/tokens';
 import { OfferFull } from '../types';
 import { replaceApiPath } from '../common';
-
+import { AxiosError } from 'axios';
 
 const createAppAsyncThunk = createAsyncThunk.withTypes<{
   dispatch: AppDispatch;
@@ -27,11 +27,15 @@ export const fetchOffersList = createAppAsyncThunk<OfferPreview[], undefined>(
 
 export const fetchOffer = createAppAsyncThunk<OfferFull, { id: string }>(
   'offers/fetchFull',
-  async ({ id }, { extra: api }) => {
+  async ({ id }, { extra: api, rejectWithValue }) => {
 
-    const { data } = await api.get<OfferFull>(replaceApiPath(APIRoutes.offer, { 'offerId': id }));
-    return data;
-
+    try {
+      const { data } = await api.get<OfferFull>(replaceApiPath(APIRoutes.offer, { 'offerId': id }));
+      return data;
+    } catch(error) {
+      const axiosError = error as AxiosError;
+      return rejectWithValue(axiosError.message);
+    }
   }
 );
 
@@ -51,42 +55,39 @@ export const fetchReviews = createAppAsyncThunk<Review[], { id: string }>(
   }
 );
 
-export const pushNewReviews = createAppAsyncThunk<void, { offerId: string; review: Review }>(
+export const pushNewReviews = createAppAsyncThunk<Review, { offerId: string; review: Review }>(
   'reviews/pushNew',
   async ({ offerId, review }, { extra: api }) => {
-    await api.post<Review>(replaceApiPath(APIRoutes.review, { 'offerId': offerId }), {
+    const { data } = await api.post<Review>(replaceApiPath(APIRoutes.review, { 'offerId': offerId }), {
       comment: review.comment,
       rating: review.rating,
     });
+    return data;
   }
 );
 
-export const pushIsFavoriteAction = createAppAsyncThunk<void, { id: string; isFavorite: boolean }>(
+export const pushIsFavoriteAction = createAppAsyncThunk<OfferFull, { id: string; isFavorite: boolean }>(
   'offer/pushIsFavorite',
   async ({ id, isFavorite }, { extra: api }) => {
-    await api.post<OfferFull>(replaceApiPath(APIRoutes.favorite, { 'offerId': id, 'status': Number(isFavorite).toString() }));
-
+    const { data } = await api.post<OfferFull>(replaceApiPath(APIRoutes.favorite, { 'offerId': id, 'status': Number(isFavorite).toString() }));
+    return data;
   }
 );
 
-export const fetchAuthorizationStatus = createAppAsyncThunk<void, undefined>(
+export const fetchAuthorizationStatus = createAppAsyncThunk<User, undefined>(
   'user/fetchAuthorisationStatus',
   async (_args, { extra: api }) => {
-    await api.get<User>(APIRoutes.login);
+    const { data } = await api.get<User>(APIRoutes.login);
+    return data;
   }
 );
 
-export const logInAction = createAppAsyncThunk<User | null, { email: string; password: string }>(
+export const logInAction = createAppAsyncThunk<User, { email: string; password: string }>(
   'user/logIn',
   async ({ email, password }, { extra: api }) => {
-    try {
-      const { data } = await api.post<User>(APIRoutes.login, { email, password });
-      setToken(data.token);
-      return data
-    } catch {
-      dropToken();
-      return null;
-    }
+    const { data } = await api.post<User>(APIRoutes.login, { email, password });
+    setToken(data.token);
+    return data;
   }
 );
 

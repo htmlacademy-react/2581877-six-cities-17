@@ -6,6 +6,8 @@ import OfferListEmpty from '../offer-list-empty/offer-list-empty';
 import { OfferPreview } from '../../types';
 import { useAppSelector } from '../../hooks';
 import Spinner from '../spinner/spinner';
+import { getOffersList } from '../../store/offers-list-data/selectors';
+import { useCallback } from 'react';
 
 type OffersListProps = {
   offersList: OfferPreview[];
@@ -14,11 +16,11 @@ type OffersListProps = {
 
 function OffersList({ offersList, offerListStyle }: OffersListProps): JSX.Element {
   const [activeOffer, setActiveOffer] = useState<OfferPreview | null>(null);
-  const isLoaded = useAppSelector((state) => state.offersPreview).length > 0;
-  function onHoverCallback(offer: OfferPreview | null): void {
-    setActiveOffer(offer);
-  }
+  const isLoaded = useAppSelector(getOffersList).length > 0;
 
+  const onHoverCallback = useCallback((offer: OfferPreview | null): void => {
+    setActiveOffer(offer);
+  }, []);
 
   switch (offerListStyle) {
     case OfferListStyle.Main:
@@ -32,7 +34,7 @@ function OffersList({ offersList, offerListStyle }: OffersListProps): JSX.Elemen
         return <Spinner/>;
       }
     case OfferListStyle.Nearby:
-      return <OffersListNearby offersList={offersList} mapStartPosition={offersList[0].city.location} activeOffer={activeOffer} onHoverCallback={onHoverCallback} />;
+      return <OffersListNearby offersList={offersList} mapStartPosition={offersList[0].city.location} />;
   }
 
 }

@@ -7,15 +7,13 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import Page404 from '../../pages/page-404/page-404';
 
 import { HelmetProvider } from 'react-helmet-async';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import { Provider } from 'react-redux';
 import { store } from '../../store';
 import { offers } from '../../mocks/offers';
 import { fetchOffersList } from '../../store/api-actions';
 import { fetchAuthorizationStatus } from '../../store/api-actions';
-
-const authorizationStatus: AuthorizationStatus = AuthorizationStatus.Auth;
 
 
 store.dispatch(fetchOffersList());
