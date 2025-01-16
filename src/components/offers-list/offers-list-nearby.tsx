@@ -21,7 +21,7 @@ function OffersListNearby({ offersList, mapStartPosition }: OffersListNearbyProp
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
             {offersList.map((offer) => (
-              <OfferCard offer={offer} key={offer.id} onHoverCallback={() => { }} className="near-places__card" />
+              <OfferCard offer={offer} key={offer.id} onHoverCallback={() => { }} cardStyle={'nearby'} />
             ))}
           </div>
         </section >

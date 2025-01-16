@@ -26,7 +26,7 @@ function OffersListMain({ offersList, mapStartPosition, activeOffer, onHoverCall
           <OffersSortOptions />
           <div className="cities__places-list places__list tabs__content">
             {offersList.map((offer) => (
-              <OfferCard offer={offer} key={offer.id} onHoverCallback={onHoverCallback} className="cities__card" />
+              <OfferCard offer={offer} key={offer.id} onHoverCallback={onHoverCallback} cardStyle={'main'} />
             ))}
           </div>
         </section>

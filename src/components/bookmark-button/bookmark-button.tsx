@@ -10,10 +10,10 @@ import { getAuthorizationStatus } from '../../store/user-process/selectors';
 type BookmarkButtonProps = {
   offerId: string;
   isFavorite: boolean;
-  elementStyle: 'place-card' | 'offer';
+  buttonStyle: 'main' | 'nearby' | 'favorites' | 'offer';
 }
 
-export default function BookmarkButton({ offerId, isFavorite, elementStyle }: BookmarkButtonProps): JSX.Element {
+export default function BookmarkButton({ offerId, isFavorite, buttonStyle }: BookmarkButtonProps): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
@@ -33,7 +33,8 @@ export default function BookmarkButton({ offerId, isFavorite, elementStyle }: Bo
     width: number;
     height: number;
   }
-  const dimensions: Dimensions = elementStyle === 'offer' ? {
+
+  const dimensions: Dimensions = buttonStyle === 'offer' ? {
     width: 31,
     height: 33,
   } : {
@@ -41,7 +42,7 @@ export default function BookmarkButton({ offerId, isFavorite, elementStyle }: Bo
     height: 19,
   };
 
-  const classPrefix = elementStyle as string;
+  const classPrefix = (buttonStyle === 'offer' ? 'offer' : 'place-card');
 
   return (
     <button
@@ -61,7 +62,7 @@ export default function BookmarkButton({ offerId, isFavorite, elementStyle }: Bo
       >
         <use xlinkHref="#icon-bookmark"> </use>
       </svg>
-      < span className="visually-hidden"> To bookmarks </span>
+      < span className="visually-hidden">{isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
     </button>
   );
 }

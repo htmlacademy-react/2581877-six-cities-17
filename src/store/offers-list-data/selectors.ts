@@ -1,4 +1,4 @@
-import {NameSpace, SortBy} from '../../const';
+import { NameSpace, SortBy } from '../../const';
 import { OfferCity, OfferPreview } from '../../types';
 import { State } from '../../types';
 import { createSelector } from 'reselect';
@@ -9,10 +9,8 @@ export const getCurrentCity = (state: Pick<State, NameSpace.OfferPreview>): Offe
 export const getFilteredAndSortedOffers = createSelector(
   [getOffersList, getCurrentCity, getSortOption],
   (offersList, currentCity, sortBy) => {
-    // Сначала фильтруем предложения по текущему городу
-    const filteredOffers = offersList.filter((offer) => offer.city.name === currentCity);
 
-    // Затем сортируем отфильтрованные предложения
+    const filteredOffers = offersList.filter((offer) => offer.city.name === currentCity);
     switch (sortBy) {
       case SortBy.PriceHighToLow:
         return filteredOffers.sort((a, b) => b.price - a.price);
@@ -22,6 +20,7 @@ export const getFilteredAndSortedOffers = createSelector(
         return filteredOffers.sort((a, b) => b.rating - a.rating);
       default:
         return filteredOffers;
+
     }
   }
 );

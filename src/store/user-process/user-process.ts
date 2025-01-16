@@ -1,9 +1,9 @@
 import { NameSpace } from '../../const';
 import { fetchAuthorizationStatus, fetchFavorites, logInAction, logOutAction } from '../api-actions';
 import { createSlice } from '@reduxjs/toolkit';
-
 import { AuthorizationStatus } from '../../const';
 import { OfferPreview, User } from '../../types';
+import { PayloadAction } from '@reduxjs/toolkit';
 
 type InitialState = {
   authorizationStatus: AuthorizationStatus;
@@ -20,7 +20,17 @@ const initialState: InitialState = {
 export const userProcess = createSlice({
   name: NameSpace.User,
   initialState,
-  reducers: {},
+  reducers: {
+    updateFavorites: (state, action: PayloadAction<OfferPreview>) => {
+      const offer = action.payload;
+      const index = state.favorites.findIndex((element) => element.id === offer.id);
+      if(index > -1) {
+        state.favorites.splice(index, 1);
+      } else {
+        state.favorites.push(offer);
+      }
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchAuthorizationStatus.fulfilled, (state, action) => {
@@ -52,4 +62,4 @@ export const userProcess = createSlice({
   }
 });
 
-
+export const { updateFavorites } = userProcess.actions;

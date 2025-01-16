@@ -11,7 +11,6 @@ import { AppRoute } from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import { Provider } from 'react-redux';
 import { store } from '../../store';
-import { offers } from '../../mocks/offers';
 import { fetchOffersList } from '../../store/api-actions';
 import { fetchAuthorizationStatus } from '../../store/api-actions';
 
@@ -30,7 +29,7 @@ function App(): JSX.Element {
               <Route path={AppRoute.Favorites}
                 element={
                   <PrivateRoute>
-                    <FavoritesPage offers={offers} />
+                    <FavoritesPage/>
                   </PrivateRoute>
                 }
               />
