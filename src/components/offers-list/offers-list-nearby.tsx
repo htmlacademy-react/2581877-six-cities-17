@@ -2,27 +2,26 @@ import OfferCard from '../offer-card/offer-card';
 import Map from '../map/map';
 import { OfferPreview } from '../../types';
 import { Location } from '../../types';
+import { useAppSelector } from '../../hooks';
+import { getOffer } from '../../store/offer-data/selectors';
 
 type OffersListNearbyProps = {
   offersList: OfferPreview[];
   mapStartPosition: Location;
-  activeOffer: OfferPreview | null;
-  onHoverCallback: (activeOffer: OfferPreview | null) => void;
 }
 
 
-function OffersListNearby({ offersList, mapStartPosition, activeOffer, onHoverCallback }: OffersListNearbyProps): JSX.Element {
+function OffersListNearby({ offersList, mapStartPosition }: OffersListNearbyProps): JSX.Element {
+  const currentOffer = useAppSelector(getOffer);
   return (
-
     <>
-      {offersList.length > 0 && <Map startPosition={mapStartPosition} offersList={offersList} activeOffer={activeOffer} className='offer__map'></Map>}
+      {offersList.length > 0 && <Map startPosition={mapStartPosition} offersList={offersList} currentOffer={currentOffer} className='offer__map'></Map>}
       <div className="container" >
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-
           <div className="near-places__list places__list">
             {offersList.map((offer) => (
-              <OfferCard offer={offer} key={offer.id} onHoverCallback={onHoverCallback} className="near-places__card" />
+              <OfferCard offer={offer} key={offer.id} onHoverCallback={() => { }} className="near-places__card" />
             ))}
           </div>
         </section >

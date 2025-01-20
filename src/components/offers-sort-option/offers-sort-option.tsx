@@ -1,14 +1,15 @@
 import cn from 'classnames';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { SortBy } from '../../const';
-import { sortByAction } from '../../store/actions';
+import { sortByAction } from '../../store/offers-list-data/offers-list-data';
+import { getSortOption } from '../../store/offers-list-data/selectors';
 
 type OffersSortOptionProps = {
   sortBy: SortBy;
 }
 
 export default function OffersSortOption({ sortBy }: OffersSortOptionProps): JSX.Element {
-  const isActive = useAppSelector((state) => state.sortBy === sortBy);
+  const isActive = sortBy === useAppSelector(getSortOption);
   const dispatch = useAppDispatch();
 
   return (

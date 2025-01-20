@@ -4,16 +4,11 @@ import { APIRoutes } from '../const';
 import { OfferPreview, Review } from '../types';
 import { State } from '../types';
 import { AppDispatch } from '../types';
-import { addNewReviewsAction, loadOffersListAction, loadReviewsAction } from './actions';
-import { changeAuthorizationStatusAction } from './actions';
 import { User } from '../types';
-import { AuthorizationStatus } from '../const';
 import { dropToken, setToken } from '../services/tokens';
 import { OfferFull } from '../types';
-import { loadOfferAction } from './actions';
-import { loadNearbyAction } from './actions';
 import { replaceApiPath } from '../common';
-import { changeIsFavoriteAction } from './actions';
+import { AxiosError } from 'axios';
 
 const createAppAsyncThunk = createAsyncThunk.withTypes<{
   dispatch: AppDispatch;
@@ -21,116 +16,87 @@ const createAppAsyncThunk = createAsyncThunk.withTypes<{
   extra: AxiosInstance;
 }>();
 
-export const fetchOffersListAction = createAppAsyncThunk<void, undefined>(
+export const fetchOffersList = createAppAsyncThunk<OfferPreview[], undefined>(
   'offers/fetchList',
-  async (_args, { dispatch, extra: api }) => {
+  async (_args, { extra: api }) => {
     const { data } = await api.get<OfferPreview[]>(APIRoutes.offersList);
-    dispatch(loadOffersListAction(data));
+    return data;
   }
 );
 
-export const fetchOfferAction = createAppAsyncThunk<void, { id: string }>(
+
+export const fetchOffer = createAppAsyncThunk<OfferFull, { id: string }>(
   'offers/fetchFull',
-  async ({ id }, { dispatch, extra: api }) => {
+  async ({ id }, { extra: api, rejectWithValue }) => {
+
     try {
       const { data } = await api.get<OfferFull>(replaceApiPath(APIRoutes.offer, { 'offerId': id }));
-      dispatch(loadOfferAction(data));
-    } catch {
-      dispatch(loadOfferAction(undefined));
+      return data;
+    } catch(error) {
+      const axiosError = error as AxiosError;
+      return rejectWithValue(axiosError.message);
     }
   }
 );
 
-export const fetchNearbyAction = createAppAsyncThunk<void, { id: string }>(
+export const fetchNearby = createAppAsyncThunk<OfferPreview[], { id: string }>(
   'offers/fetchNearby',
-  async ({ id }, { dispatch, extra: api }) => {
+  async ({ id }, { extra: api }) => {
     const { data } = await api.get<OfferPreview[]>(replaceApiPath(APIRoutes.nearby, { 'offerId': id }));
-    dispatch(loadNearbyAction(data.slice(0, 3)));
+    return data;
   }
 );
 
-export const fetchReviewsAction = createAppAsyncThunk<void, { id: string }>(
+export const fetchReviews = createAppAsyncThunk<Review[], { id: string }>(
   'reviews/fetchReviews',
-  async ({ id }, { dispatch, extra: api }) => {
+  async ({ id }, { extra: api }) => {
     const { data } = await api.get<Review[]>(replaceApiPath(APIRoutes.review, { 'offerId': id }));
-    dispatch(loadReviewsAction(data));
+    return data;
   }
 );
 
-export const pushNewReviewsAction = createAppAsyncThunk<void, { offerId: string; review: Review }>(
+export const pushNewReviews = createAppAsyncThunk<Review, { offerId: string; review: Review }>(
   'reviews/pushNew',
-  async ({ offerId, review }, { dispatch, extra: api }) => {
+  async ({ offerId, review }, { extra: api }) => {
     const { data } = await api.post<Review>(replaceApiPath(APIRoutes.review, { 'offerId': offerId }), {
       comment: review.comment,
       rating: review.rating,
     });
-    dispatch(addNewReviewsAction(data));
+    return data;
   }
 );
 
-export const pushIsFavoriteAction = createAppAsyncThunk<void, { id: string; isFavorite: boolean }>(
+export const pushIsFavoriteAction = createAppAsyncThunk<OfferFull, { id: string; isFavorite: boolean }>(
   'offer/pushIsFavorite',
-  async ({ id, isFavorite }, { dispatch, extra: api }) => {
+  async ({ id, isFavorite }, { extra: api }) => {
     const { data } = await api.post<OfferFull>(replaceApiPath(APIRoutes.favorite, { 'offerId': id, 'status': Number(isFavorite).toString() }));
-    dispatch(changeIsFavoriteAction({ offerId: id, isFavorite: data.isFavorite }));
+    return data;
   }
 );
 
-export const fetchAuthorizationStatus = createAppAsyncThunk<void, undefined>(
+export const fetchAuthorizationStatus = createAppAsyncThunk<User, undefined>(
   'user/fetchAuthorisationStatus',
-  async (_args, { dispatch, extra: api }) => {
-    try {
-      const { data } = await api.get<User>(APIRoutes.login);
-      dispatch(changeAuthorizationStatusAction({
-        authorizationStatus: AuthorizationStatus.Auth,
-        user: data,
-      }
-      ));
-    } catch {
-      dropToken();
-      dispatch(changeAuthorizationStatusAction({
-        authorizationStatus: AuthorizationStatus.NoAuth,
-        user: null,
-      }
-      ));
-    }
+  async (_args, { extra: api }) => {
+    const { data } = await api.get<User>(APIRoutes.login);
+    return data;
   }
 );
 
-export const logInAction = createAppAsyncThunk<void, { email: string; password: string }>(
+export const logInAction = createAppAsyncThunk<User, { email: string; password: string }>(
   'user/logIn',
-  async ({ email, password }, { dispatch, extra: api }) => {
-    try {
-      const { data } = await api.post<User>(APIRoutes.login, { email, password });
-      setToken(data.token);
-      dispatch(changeAuthorizationStatusAction({
-        authorizationStatus: AuthorizationStatus.Auth,
-        user: data,
-      }
-      ));
-    } catch {
-      dropToken();
-      dispatch(changeAuthorizationStatusAction({
-        authorizationStatus: AuthorizationStatus.NoAuth,
-        user: null,
-      }
-      ));
-    }
+  async ({ email, password }, { extra: api }) => {
+    const { data } = await api.post<User>(APIRoutes.login, { email, password });
+    setToken(data.token);
+    return data;
   }
 );
 
 
 export const logOutAction = createAppAsyncThunk<void, undefined>(
   'user/logOut',
-  async (_args, { dispatch, extra: api }) => {
+  async (_args, { extra: api }) => {
     await api.get<User>(APIRoutes.logout);
     dropToken();
-    dispatch(changeAuthorizationStatusAction(
-      {
-        authorizationStatus: AuthorizationStatus.NoAuth,
-        user: null
-      }
-    ));
   }
 );
 

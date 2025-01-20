@@ -5,49 +5,47 @@ import Page404 from '../page-404/page-404';
 import { OfferListStyle } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { useAppDispatch } from '../../hooks';
-import { fetchNearbyAction, fetchOfferAction } from '../../store/api-actions';
+import { fetchOffer, fetchNearby } from '../../store/api-actions';
 import { useEffect } from 'react';
 import { OfferFull, OfferPreview } from '../../types';
 import Header from '../../components/header/header';
 import UserStatus from '../../components/user-status/user-status';
-import { loadNearbyAction, loadOfferAction } from '../../store/actions';
 import OfferInfo from '../../components/offer-info/offer-info';
 import Spinner from '../../components/spinner/spinner';
 import OffersList from '../../components/offers-list/offers-list';
+import { clearOffer, clearOfferNearBy } from '../../store/offer-data/offer-data';
+import { getOffer, getOfferNearBy, hasOfferFetchError } from '../../store/offer-data/selectors';
 
 function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const { id } = useParams();
-
+  const hasError = useAppSelector(hasOfferFetchError);
 
   let offer: OfferFull | null | undefined = null;
   useEffect(() => {
     if (id) {
-      dispatch(fetchOfferAction({ id }));
+      dispatch(fetchOffer({ id }));
     }
     return () => {
-      dispatch(loadOfferAction(null));
+      dispatch(clearOffer());
     };
   }, [dispatch, id]);
-  offer = useAppSelector((state) => state.offerFull);
+  offer = useAppSelector(getOffer);
 
   let offersNearby: OfferPreview[] = [];
   useEffect(() => {
     if (id) {
-      dispatch(fetchNearbyAction({ id }));
+      dispatch(fetchNearby({ id }));
     }
     return () => {
-      dispatch(loadNearbyAction([]));
+      dispatch(clearOfferNearBy());
     };
   }, [dispatch, id]);
-  offersNearby = useAppSelector((state) => state.offersNearby);
+  offersNearby = useAppSelector(getOfferNearBy);
 
-  if (id === undefined || offer === undefined) {
+  if (id === undefined || hasError) {
     return (<Page404 />);
   }
-
-
-
 
   return (
     <>

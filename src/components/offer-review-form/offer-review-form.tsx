@@ -4,8 +4,8 @@ import React from 'react';
 import { Review } from '../../types';
 import { User } from '../../types';
 import { useAppDispatch } from '../../hooks';
-import { pushNewReviewsAction } from '../../store/api-actions';
 import { v4 as uuid } from 'uuid';
+import { pushNewReviews } from '../../store/api-actions';
 
 type OfferReviewSubmitProps = {
   user: User;
@@ -36,7 +36,7 @@ function OfferReviewSubmit({offerId, user}: OfferReviewSubmitProps): JSX.Element
       user,
     };
     event.preventDefault();
-    dispatch(pushNewReviewsAction({review: newReview, offerId}));
+    dispatch(pushNewReviews({review: newReview, offerId}));
     setComment('');
     setRating(-1);
   };

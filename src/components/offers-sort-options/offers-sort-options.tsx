@@ -3,10 +3,12 @@ import cn from 'classnames';
 import OffersSortOption from '../offers-sort-option/offers-sort-option';
 import { useAppSelector } from '../../hooks';
 import { SortBy } from '../../const';
+import { getSortOption } from '../../store/offers-list-data/selectors';
+import React from 'react';
 
-export default function OffersSortOptions(): JSX.Element {
+const OffersSortOptions = React.memo((): JSX.Element => {
   const [mouseHover, setMouseHover] = useState(false);
-  const sortBy = useAppSelector((state) => state.sortBy);
+  const sortBy = useAppSelector(getSortOption);
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -29,4 +31,7 @@ export default function OffersSortOptions(): JSX.Element {
       </ul>
     </form>
   );
-}
+});
+
+OffersSortOptions.displayName = 'OffersSortOptions';
+export default OffersSortOptions;

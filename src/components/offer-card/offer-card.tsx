@@ -3,6 +3,7 @@ import { ratingToPercent, getLinkToOffer } from '../../common';
 import cn from 'classnames';
 import { OfferPreview } from '../../types';
 import BookmarkButton from '../bookmark-button/bookmark-button';
+import React from 'react';
 
 type OfferCardProps = {
   offer: OfferPreview;
@@ -10,9 +11,8 @@ type OfferCardProps = {
   className: string;
 }
 
-function OfferCard({ offer, onHoverCallback, className }: OfferCardProps): JSX.Element {
+const OfferCard = React.memo(({ offer, onHoverCallback, className } : OfferCardProps): JSX.Element => {
   const linkToOffer: string = getLinkToOffer(offer.id);
-
 
   return (
     <article className={cn('place-card',className)}
@@ -52,6 +52,7 @@ function OfferCard({ offer, onHoverCallback, className }: OfferCardProps): JSX.E
     </article>
 
   );
-}
+});
 
+OfferCard.displayName = 'OfferCard';
 export default OfferCard;

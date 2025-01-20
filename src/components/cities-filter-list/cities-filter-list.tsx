@@ -1,10 +1,7 @@
 import { ОfferCities } from '../../types';
 import CitiesFiterItem from '../cities-filter-item/cities-filter-item';
-import { filterByCityAction } from '../../store/actions';
-import { useAppDispatch } from '../../hooks';
 
 export default function CitiesFilterList(): JSX.Element {
-  const dispatch = useAppDispatch();
 
   return (
     <>
@@ -17,7 +14,6 @@ export default function CitiesFilterList(): JSX.Element {
                 <CitiesFiterItem
                   city={city}
                   key={city}
-                  onClickCallback={() => dispatch(filterByCityAction(city))}
                 />
               ))}
             </ul>

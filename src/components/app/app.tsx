@@ -7,18 +7,16 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import Page404 from '../../pages/page-404/page-404';
 
 import { HelmetProvider } from 'react-helmet-async';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import { Provider } from 'react-redux';
 import { store } from '../../store';
 import { offers } from '../../mocks/offers';
-import { fetchOffersListAction } from '../../store/api-actions';
+import { fetchOffersList } from '../../store/api-actions';
 import { fetchAuthorizationStatus } from '../../store/api-actions';
 
-const authorizationStatus: AuthorizationStatus = AuthorizationStatus.Auth;
 
-
-store.dispatch(fetchOffersListAction());
+store.dispatch(fetchOffersList());
 store.dispatch(fetchAuthorizationStatus());
 
 function App(): JSX.Element {
@@ -36,7 +34,7 @@ function App(): JSX.Element {
                   </PrivateRoute>
                 }
               />
-              <Route path={AppRoute.Offer} element={<OfferPage offers={offers} authorizationStatus={authorizationStatus} />} />
+              <Route path={AppRoute.Offer} element={<OfferPage/>} />
             </Route>
             <Route path={AppRoute.Login} element={<LoginPage />} />
             <Route path='*' element={<Page404 />} />

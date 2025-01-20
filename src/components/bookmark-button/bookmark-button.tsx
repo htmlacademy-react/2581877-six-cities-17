@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { AuthorizationStatus } from '../../const';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 type BookmarkButtonProps = {
   offerId: string;
@@ -15,7 +16,7 @@ type BookmarkButtonProps = {
 export default function BookmarkButton({ offerId, isFavorite, elementStyle }: BookmarkButtonProps): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const handleFavoriteClick = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
