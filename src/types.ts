@@ -1,13 +1,8 @@
 import { store } from './store';
 
-export type HousingType = 'Apartament' | 'Room';
-
-export type OfferLocation = {
-  lat: number;
-  lng: number;
-}
 
 export type OfferType = 'apartment' | 'room' | 'house' | 'hotel';
+
 export type Location = {
   latitude: number;
   longitude: number;
@@ -75,28 +70,15 @@ export type User = Host & {
   token: string;
 }
 
-export type Offer = {
-  id: number;
-  city: OfferCity;
-  title: string;
-  price: number;
-  rating: number;
-  housingType: HousingType;
-  isMarked: boolean;
-  isPremium: boolean;
-  location: Location;
-  images: string[];
-  titleImage: string;
-  conveniences: OfferConveniences;
-  roomsCount: number;
-  maxAdult: number;
-  nearbyOffersId: number[];
-}
 
 export type MapStartPosition = {
   center: Location;
   zoom: number;
 }
+
+export type CategorizedOffers = {
+  [cityName in OfferCity]?: OfferPreview[];
+};
 
 export type CitiesMapStartPosition = {
   [K in typeof ОfferCities[number]]: MapStartPosition

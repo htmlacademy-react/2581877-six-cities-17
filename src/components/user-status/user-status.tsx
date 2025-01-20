@@ -6,14 +6,14 @@ import { AppRoute } from '../../const';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { getUser } from '../../store/user-process/selectors';
-import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getAuthorizationStatus, getFavoritesCount } from '../../store/user-process/selectors';
 
 export default function UserStatus(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const user = useAppSelector(getUser);
-
+  const favoritesCount = useAppSelector(getFavoritesCount);
 
   return (
     <nav className="header__nav">
@@ -25,7 +25,7 @@ export default function UserStatus(): JSX.Element {
                 <div className="header__avatar-wrapper user__avatar-wrapper">
                 </div>
                 <span className="header__user-name user__name">{user?.email}</span>
-                <span className="header__favorite-count">3</span>
+                <span className="header__favorite-count">{favoritesCount}</span>
               </Link>
             </li>
             <li className="header__nav-item">

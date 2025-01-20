@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createAPI } from '../services/api';
 import { rootReducer } from './root-reducer';
-import { updateFavorites } from './middlewares/update-favorites';
+import { updateFavorites, loadFavorites } from './middlewares/favorites';
 
 export const api = createAPI();
 
@@ -12,5 +12,5 @@ export const store = configureStore({
       thunk: {
         extraArgument: api,
       },
-    }).concat(updateFavorites),
+    }).concat([updateFavorites, loadFavorites]),
 });

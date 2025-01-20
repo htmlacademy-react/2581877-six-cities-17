@@ -26,7 +26,7 @@ export default function OfferInfo({ offer }: OfferInfoProps): JSX.Element {
             <h1 className="offer__name">
               {offer.title}
             </h1>
-            <BookmarkButton offerId={offer.id} isFavorite={offer.isFavorite} elementStyle={'offer'} />
+            <BookmarkButton offerId={offer.id} isFavorite={offer.isFavorite} buttonStyle={'offer'} />
 
           </div>
           <div className="offer__rating rating">

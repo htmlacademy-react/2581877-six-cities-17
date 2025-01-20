@@ -69,7 +69,15 @@ export const pushNewReviews = createAppAsyncThunk<Review, { offerId: string; rev
 export const pushIsFavoriteAction = createAppAsyncThunk<OfferFull, { id: string; isFavorite: boolean }>(
   'offer/pushIsFavorite',
   async ({ id, isFavorite }, { extra: api }) => {
-    const { data } = await api.post<OfferFull>(replaceApiPath(APIRoutes.favorite, { 'offerId': id, 'status': Number(isFavorite).toString() }));
+    const { data } = await api.post<OfferFull>(replaceApiPath(APIRoutes.favoriteStatus, { 'offerId': id, 'status': Number(isFavorite).toString() }));
+    return data;
+  }
+);
+
+export const fetchFavorites = createAppAsyncThunk<OfferPreview[], undefined>(
+  'user/fetchFavorites',
+  async (_args, { extra: api }) => {
+    const { data } = await api.get<OfferPreview[]>(APIRoutes.favorite);
     return data;
   }
 );
