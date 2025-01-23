@@ -1,7 +1,15 @@
 import { store } from './store';
 
 
-export type OfferType = 'apartment' | 'room' | 'house' | 'hotel';
+export const OfferTypes = ['apartment', 'room', 'house', 'hotel'] as const;
+export type OfferType = typeof OfferTypes[number];
+
+export const ОfferCities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
+export type OfferCity = typeof ОfferCities[number];
+
+export type OfferСonvenience = 'Wi-Fi' | 'Washing machine' | 'Towels' | 'Heating' | 'Coffee machine' | 'Baby seat' | 'Kitchen' | 'Dishwasher' | 'Cabel TV' | 'Fridge';
+export type OfferConveniences = OfferСonvenience[];
+
 
 export type Location = {
   latitude: number;
@@ -10,7 +18,7 @@ export type Location = {
 }
 
 export type City = {
-  name: string;
+  name: OfferCity;
   location: Location;
 }
 
@@ -20,15 +28,9 @@ export type Host = {
   isPro: boolean;
 }
 
-export const ОfferCities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
-export type OfferCity = typeof ОfferCities[number];
-
-export type OfferСonvenience = 'Wi-Fi' | 'Washing machine' | 'Towels' | 'Heating' | 'Coffee machine' | 'Baby seat' | 'Kitchen' | 'Dishwasher' | 'Cabel TV' | 'Fridge';
-export type OfferConveniences = OfferСonvenience[];
-
 export type Review = {
   id: string;
-  date: string;
+  date: Date;
   user: Host;
   comment: string;
   rating: number;
@@ -52,7 +54,7 @@ export type OfferFull = {
   title: string;
   type: OfferType;
   price: number;
-  city: OfferCity;
+  city: City;
   location: Location;
   isFavorite: boolean;
   isPremium: boolean;
