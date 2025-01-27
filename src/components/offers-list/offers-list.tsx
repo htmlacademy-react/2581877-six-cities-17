@@ -18,7 +18,7 @@ function OffersList({ offersList, offerListStyle }: OffersListProps): JSX.Elemen
   const [activeOffer, setActiveOffer] = useState<OfferPreview | null>(null);
   const isLoaded = useAppSelector(getOffersList).length > 0;
 
-  const onHoverCallback = useCallback((offer: OfferPreview | null): void => {
+  const handleOnHover = useCallback((offer: OfferPreview | null): void => {
     setActiveOffer(offer);
   }, []);
 
@@ -28,7 +28,7 @@ function OffersList({ offersList, offerListStyle }: OffersListProps): JSX.Elemen
         if (offersList.length === 0) {
           return <OfferListEmpty />;
         } else {
-          return <OffersListMain offersList={offersList} mapStartPosition={offersList[0].city.location} activeOffer={activeOffer} onHoverCallback={onHoverCallback} />;
+          return <OffersListMain offersList={offersList} mapStartPosition={offersList[0].city.location} activeOffer={activeOffer} handleOnHover={handleOnHover} />;
         }
       } else {
         return <Spinner/>;

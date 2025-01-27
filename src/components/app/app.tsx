@@ -13,6 +13,7 @@ import { Provider } from 'react-redux';
 import { store } from '../../store';
 import { fetchOffersList } from '../../store/api-actions';
 import { fetchAuthorizationStatus } from '../../store/api-actions';
+import { ToastContainer } from 'react-toastify';
 
 
 store.dispatch(fetchOffersList());
@@ -21,6 +22,7 @@ store.dispatch(fetchAuthorizationStatus());
 function App(): JSX.Element {
   return (
     <Provider store={store}>
+      <ToastContainer/>
       <HelmetProvider>
         <BrowserRouter>
           <Routes>

@@ -78,6 +78,7 @@ export type MapStartPosition = {
   zoom: number;
 }
 
+
 export type CategorizedOffers = {
   [cityName in OfferCity]?: OfferPreview[];
 };

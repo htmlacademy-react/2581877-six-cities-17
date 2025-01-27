@@ -1,3 +1,4 @@
+
 export enum AppRoute {
   Root = '/',
   Login = '/login',
@@ -24,16 +25,25 @@ export enum SortBy {
   TopRrated = 'Top rated first',
 }
 
+
+export enum NewReviewStatus {
+  Empty = 'empty',
+  Pending = 'pending',
+  Success = 'success',
+  Error = 'error',
+}
+
+
 export enum APIRoutes {
-  root = '/',
-  offersList = '/offers',
-  login = '/login',
-  logout = '/logout',
-  offer = '/offers/{offerId}',
-  nearby = '/offers/{offerId}/nearby',
-  review = '/comments/{offerId}',
-  favoriteStatus = '/favorite/{offerId}/{status}',
-  favorite = '/favorite',
+  Root = '/',
+  OffersList = '/offers',
+  Login = '/login',
+  Logout = '/logout',
+  Offer = '/offers/{offerId}',
+  Nearby = '/offers/{offerId}/nearby',
+  Review = '/comments/{offerId}',
+  FavoriteStatus = '/favorite/{offerId}/{status}',
+  Favorite = '/favorite',
 }
 
 export enum NameSpace {

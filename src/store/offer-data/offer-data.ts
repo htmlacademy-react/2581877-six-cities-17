@@ -1,4 +1,4 @@
-import { NameSpace } from '../../const';
+import { NameSpace, NewReviewStatus } from '../../const';
 import { fetchOffer, fetchNearby, fetchReviews, pushNewReviews } from '../api-actions';
 import { createSlice } from '@reduxjs/toolkit';
 import { OfferPreview } from '../../types';
@@ -11,6 +11,7 @@ type InitialState = {
   hasFetchError: boolean;
   offersNearby: OfferPreview[];
   reviews: Review[];
+  newReviewStatus: NewReviewStatus;
 }
 
 
@@ -19,6 +20,7 @@ const initialState: InitialState = {
   hasFetchError: false,
   offersNearby: [],
   reviews: [],
+  newReviewStatus: NewReviewStatus.Empty,
 };
 
 export const offerData = createSlice({
@@ -34,14 +36,17 @@ export const offerData = createSlice({
     clearReviews: (state) => {
       state.reviews = [];
     },
-    updateFavorites: (state, action: PayloadAction<OfferFull>) => {
-      const offer = action.payload;
-      const index = state.offersNearby.findIndex((element) => element.id === offer.id);
+    clearNewReviewState: (state) => {
+      state.newReviewStatus = NewReviewStatus.Empty;
+    },
+    updateFavorites: (state, action: PayloadAction<{offerId:string; isFavorite: boolean}>) => {
+      const {offerId, isFavorite} = action.payload;
+      const index = state.offersNearby.findIndex((element) => element.id === offerId);
       if (index > -1) {
-        state.offersNearby[index].isFavorite = offer.isFavorite;
+        state.offersNearby[index].isFavorite = isFavorite;
       }
       if (state.offerFull) {
-        state.offerFull.isFavorite = offer.isFavorite;
+        state.offerFull.isFavorite = isFavorite;
       }
     }
   },
@@ -67,12 +72,21 @@ export const offerData = createSlice({
         state.reviews = action.payload;
       })
 
+      .addCase(pushNewReviews.pending, (state) => {
+        state.newReviewStatus = NewReviewStatus.Pending;
+      })
+
       .addCase(pushNewReviews.fulfilled, (state, action) => {
         state.reviews.push(action.payload);
+        state.newReviewStatus = NewReviewStatus.Success;
+
+      })
+      .addCase(pushNewReviews.rejected, (state) => {
+        state.newReviewStatus = NewReviewStatus.Error;
       });
 
   }
 });
 
 
-export const { clearOffer, clearOfferNearBy, clearReviews, updateFavorites } = offerData.actions;
+export const { clearOffer, clearOfferNearBy, clearReviews, updateFavorites, clearNewReviewState } = offerData.actions;

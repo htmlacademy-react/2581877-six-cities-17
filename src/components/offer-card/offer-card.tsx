@@ -7,11 +7,11 @@ import React from 'react';
 
 type OfferCardProps = {
   offer: OfferPreview;
-  onHoverCallback: (activeOffer: OfferPreview | null) => void;
+  handleOnHover: (activeOffer: OfferPreview | null) => void;
   cardStyle: 'main' | 'nearby' | 'favorites';
 }
 
-const OfferCard = React.memo(({ offer, onHoverCallback, cardStyle }: OfferCardProps): JSX.Element => {
+const OfferCard = React.memo(({ offer, handleOnHover, cardStyle }: OfferCardProps): JSX.Element => {
   const linkToOffer: string = getLinkToOffer(offer.id);
   const imageSize = cardStyle === 'favorites' ? {
     width: 150,
@@ -30,8 +30,8 @@ const OfferCard = React.memo(({ offer, onHoverCallback, cardStyle }: OfferCardPr
           { ['favorites__card']: cardStyle === 'favorites' },
         )
       }
-      onMouseEnter={() => onHoverCallback(offer)}
-      onMouseLeave={() => onHoverCallback(null)}
+      onMouseEnter={() => handleOnHover(offer)}
+      onMouseLeave={() => handleOnHover(null)}
     >
       {offer.isPremium && (
         <div className="place-card__mark">
@@ -68,7 +68,7 @@ const OfferCard = React.memo(({ offer, onHoverCallback, cardStyle }: OfferCardPr
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${ratingToPercent(offer.rating).toString()}%` }}></span>
+            <span style={{ width: ratingToPercent(offer.rating)}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

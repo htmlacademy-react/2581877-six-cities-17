@@ -1,5 +1,5 @@
 import {AuthorizationStatus, NameSpace} from '../../const';
-import { State, User, OfferPreview, OfferCity } from '../../types';
+import { State, User, OfferPreview } from '../../types';
 import { CategorizedOffers } from '../../types';
 import { createSelector } from '@reduxjs/toolkit';
 
@@ -11,7 +11,7 @@ export const getCategorizedFavorites = createSelector([getFavorites], (offers) =
   const categorizedOffers: CategorizedOffers = {};
 
   offers.forEach((offer: OfferPreview) => {
-    const offerCity: OfferCity = offer.city.name as OfferCity;
+    const offerCity = offer.city.name;
     if (categorizedOffers[offerCity] === undefined) {
       categorizedOffers[offerCity] = [];
     }
