@@ -1,19 +1,18 @@
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
 import { useAppSelector } from '../../hooks';
-import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { logInAction } from '../../store/api-actions';
 import { AuthorizationStatus } from '../../const';
 import { useNavigate } from 'react-router-dom';
-import { getCurrentCity } from '../../store/offers-list-data/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { useEffect } from 'react';
+import { OfferCity, ОfferCities } from '../../types';
+import { filterByCity } from '../../store/offers-list-data/offers-list-data';
 
 function LoginPage(): JSX.Element {
-  const currentCity = useAppSelector(getCurrentCity);
   const navigate = useNavigate();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
@@ -25,6 +24,11 @@ function LoginPage(): JSX.Element {
     const hasLetter = /\w/.test(pass);
     const hasDigit = /\d/.test(pass);
     return hasLetter && hasDigit;
+  };
+
+  const getRandomCity = (): OfferCity => {
+    const randomIndex = Math.floor(Math.random() * ОfferCities.length);
+    return ОfferCities[randomIndex];
   };
 
   const handleEmailFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,6 +52,8 @@ function LoginPage(): JSX.Element {
       navigate(AppRoute.Root);
     }
   }, [authorizationStatus, navigate]);
+
+  const randomCity = getRandomCity();
 
   return (
     <>
@@ -75,9 +81,17 @@ function LoginPage(): JSX.Element {
             </section>
             <section className="locations locations--login locations--current">
               <div className="locations__item">
-                <Link className="locations__item-link" to={AppRoute.Root}>
-                  <span>{currentCity}</span>
-                </Link>
+                <a className="locations__item-link"
+                  onClick={
+                    (event) => {
+                      event.preventDefault();
+                      dispatch(filterByCity(randomCity));
+                      navigate(AppRoute.Root);
+                    }
+                  }
+                >
+                  <span>{randomCity}</span>
+                </a>
               </div>
             </section>
           </div>

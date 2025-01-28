@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { getAuthorizationStatus, getUser } from '../../store/user-process/selectors';
 import { clearReviews } from '../../store/offer-data/offer-data';
 import { fetchReviews } from '../../store/api-actions';
-import { getOfferReviews } from '../../store/offer-data/selectors';
+import { getOfferReviewsSorted } from '../../store/offer-data/selectors';
 
 type OfferReviewsListProps = {
   offerId: string;
@@ -27,7 +27,7 @@ function OfferReviewsList({offerId}: OfferReviewsListProps): JSX.Element {
       dispatch(clearReviews());
     };
   }, [dispatch, offerId]);
-  reviewsList = useAppSelector(getOfferReviews);
+  reviewsList = useAppSelector(getOfferReviewsSorted);
 
   return (
     <section className="offer__reviews reviews">

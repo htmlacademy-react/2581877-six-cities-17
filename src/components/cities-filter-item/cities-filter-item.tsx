@@ -12,7 +12,9 @@ type CitiesFiterItemProps = {
 export default function CitiesFiterItem({ city }: CitiesFiterItemProps): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const isActive = city === useAppSelector(getCurrentCity);
+  const curentCity = useAppSelector(getCurrentCity);
+  const isActive = city === curentCity;
+
   return (
     <li className="locations__item">
       <a

@@ -10,11 +10,11 @@ type OffersListMainProps = {
   offersList: OfferPreview[];
   mapStartPosition: Location;
   activeOffer: OfferPreview | null;
-  onHoverCallback: (activeOffer: OfferPreview | null) => void;
+  handleOnHover: (activeOffer: OfferPreview | null) => void;
 }
 
 
-function OffersListMain({ offersList, mapStartPosition, activeOffer, onHoverCallback }: OffersListMainProps): JSX.Element {
+function OffersListMain({ offersList, mapStartPosition, activeOffer, handleOnHover }: OffersListMainProps): JSX.Element {
   const currentCity = useAppSelector(getCurrentCity);
   return (
 
@@ -26,7 +26,7 @@ function OffersListMain({ offersList, mapStartPosition, activeOffer, onHoverCall
           <OffersSortOptions />
           <div className="cities__places-list places__list tabs__content">
             {offersList.map((offer) => (
-              <OfferCard offer={offer} key={offer.id} onHoverCallback={onHoverCallback} cardStyle={'main'} />
+              <OfferCard offer={offer} key={offer.id} handleOnHover={handleOnHover} cardStyle={'main'} />
             ))}
           </div>
         </section>
