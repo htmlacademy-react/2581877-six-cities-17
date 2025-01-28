@@ -22,25 +22,18 @@ function OfferPage(): JSX.Element {
   const hasError = useAppSelector(hasOfferFetchError);
 
   let offer: OfferFull | null | undefined = null;
-  useEffect(() => {
-    if (id) {
-      dispatch(fetchOffer({ id }));
-    }
-    return () => {
-      dispatch(clearOffer());
-    };
-  }, [dispatch, id]);
-  offer = useAppSelector(getOffer);
-
   let offersNearby: OfferPreview[] = [];
   useEffect(() => {
     if (id) {
+      dispatch(fetchOffer({ id }));
       dispatch(fetchNearby({ id }));
     }
     return () => {
+      dispatch(clearOffer());
       dispatch(clearOfferNearBy());
     };
   }, [dispatch, id]);
+  offer = useAppSelector(getOffer);
   offersNearby = useAppSelector(getOfferNearBy);
 
   if (id === undefined || hasError) {
