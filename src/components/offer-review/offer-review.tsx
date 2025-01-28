@@ -1,6 +1,5 @@
 import { Review } from '../../types';
-import { ratingToPercent } from '../../common';
-
+import RatingStar from '../rating-star/rating-star';
 
 type OfferReviewProps = {
   review: Review;
@@ -9,11 +8,11 @@ type OfferReviewProps = {
 function OfferReview({ review }: OfferReviewProps): JSX.Element {
   const dateFormatAttrubuteStyle = (date: Date): string => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getDate()}`;
   const dateFormatVisibleStyle = (date: Date): string => {
-    const months = [
+    const MONTHS = [
       'January', 'February', 'March', 'April', 'May', 'June',
       'July', 'August', 'September', 'October', 'November', 'December'
     ];
-    return `${months[date.getMonth()]} ${date.getFullYear()}`;
+    return `${MONTHS[date.getMonth()]} ${date.getFullYear()}`;
   };
 
   const reviewDate = new Date(review.date);
@@ -30,10 +29,7 @@ function OfferReview({ review }: OfferReviewProps): JSX.Element {
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
-          <div className="reviews__stars rating__stars">
-            <span style={{ width: ratingToPercent(review.rating) }}></span>
-            <span className="visually-hidden">Rating</span>
-          </div>
+          <RatingStar rating={review.rating} componentStyle='review' />
         </div>
         <p className="reviews__text">{review.comment}</p>
         <time className="reviews__time" dateTime={dateFormatAttrubuteStyle(reviewDate)}>

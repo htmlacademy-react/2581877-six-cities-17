@@ -5,17 +5,22 @@ import { useAppSelector } from '../../hooks';
 import OffersSortOptions from '../offers-sort-options/offers-sort-options';
 import { OfferPreview } from '../../types';
 import { getCurrentCity } from '../../store/offers-list-data/selectors';
+import { useState } from 'react';
+import { useCallback } from 'react';
 
 type OffersListMainProps = {
   offersList: OfferPreview[];
   mapStartPosition: Location;
-  activeOffer: OfferPreview | null;
-  handleOnHover: (activeOffer: OfferPreview | null) => void;
 }
 
 
-function OffersListMain({ offersList, mapStartPosition, activeOffer, handleOnHover }: OffersListMainProps): JSX.Element {
+function OffersListMain({ offersList, mapStartPosition }: OffersListMainProps): JSX.Element {
   const currentCity = useAppSelector(getCurrentCity);
+  const [activeOffer, setActiveOffer] = useState<OfferPreview | null>(null);
+  const handleOnHover = useCallback((offer: OfferPreview | null): void => {
+    setActiveOffer(offer);
+  }, []);
+
   return (
 
     <div className="cities">

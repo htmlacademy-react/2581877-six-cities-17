@@ -31,11 +31,9 @@ export const fetchOffer = createAppAsyncThunk<OfferFull, { id: string }>(
 
     try {
       const { data } = await api.get<OfferFull>(replaceApiPath(APIRoutes.Offer, { 'offerId': id }));
-      //console.log(data);
       return data;
     } catch(error) {
       const axiosError = error as AxiosError;
-      //console.log(axiosError);
 
       return rejectWithValue(axiosError.message);
     }

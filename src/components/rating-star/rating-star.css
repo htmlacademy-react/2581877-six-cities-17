@@ -1,0 +1,24 @@
+
+.rating__stars .star-0 {
+  width: 0;
+}
+
+.rating__stars .star-1 {
+  width: 20%;
+}
+
+.rating__stars .star-2 {
+  width: 40%;
+}
+
+.rating__stars .star-3 {
+  width: 60%;
+}
+
+.rating__stars .star-4 {
+  width: 80%;
+}
+
+.rating__stars .star-5 {
+  width: 100%;
+}

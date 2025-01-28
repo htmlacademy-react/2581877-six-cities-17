@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom';
-import { ratingToPercent, getLinkToOffer } from '../../common';
+import { getLinkToOffer } from '../../common';
 import cn from 'classnames';
 import { OfferPreview } from '../../types';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 import React from 'react';
+import RatingStar from '../rating-star/rating-star';
 
 type OfferCardProps = {
   offer: OfferPreview;
-  handleOnHover: (activeOffer: OfferPreview | null) => void;
+  handleOnHover?: (activeOffer: OfferPreview | null) => void;
   cardStyle: 'main' | 'nearby' | 'favorites';
 }
 
@@ -30,8 +31,8 @@ const OfferCard = React.memo(({ offer, handleOnHover, cardStyle }: OfferCardProp
           { ['favorites__card']: cardStyle === 'favorites' },
         )
       }
-      onMouseEnter={() => handleOnHover(offer)}
-      onMouseLeave={() => handleOnHover(null)}
+      onMouseEnter={() => handleOnHover && handleOnHover(offer)}
+      onMouseLeave={() => handleOnHover && handleOnHover(null)}
     >
       {offer.isPremium && (
         <div className="place-card__mark">
@@ -67,10 +68,7 @@ const OfferCard = React.memo(({ offer, handleOnHover, cardStyle }: OfferCardProp
 
         </div>
         <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={{ width: ratingToPercent(offer.rating)}}></span>
-            <span className="visually-hidden">Rating</span>
-          </div>
+          <RatingStar rating={offer.rating} componentStyle='card' />
         </div>
         <h2 className="place-card__name">
           <Link to={linkToOffer}>{offer.title}</Link>
