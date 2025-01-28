@@ -8,7 +8,6 @@ type PrivateRouteProps = {
 }
 
 function PrivateRoute({children}: PrivateRouteProps): JSX.Element {
-  //NOTE: Если в адресной строке ввести /favorites, то этот код исполняется раньше, чем axios успевает сделать запрос /login и обновить хранилище.
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   return (
     authorizationStatus === AuthorizationStatus.Auth

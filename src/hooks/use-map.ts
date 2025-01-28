@@ -31,9 +31,6 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, startPosition: Loc
 
       setMap(instance);
       isRenderedRef.current = true;
-
-      //NOTE - задать вопрос: почему в данном случае не нужно убивать экземпляр карты. Слой маркеров в компоненте map удаляется
-      //return () => { instance.remove();}
     }
 
   }, [mapRef, startPosition]);

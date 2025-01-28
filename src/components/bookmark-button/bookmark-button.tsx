@@ -7,6 +7,11 @@ import { useAppSelector } from '../../hooks';
 import { AuthorizationStatus } from '../../const';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
+type Dimensions = {
+  width: number;
+  height: number;
+}
+
 type BookmarkButtonProps = {
   offerId: string;
   isFavorite: boolean;
@@ -28,11 +33,6 @@ export default function BookmarkButton({ offerId, isFavorite, buttonStyle }: Boo
       navigate(AppRoute.Login);
     }
   };
-
-  type Dimensions = {
-    width: number;
-    height: number;
-  }
 
   const dimensions: Dimensions = buttonStyle === 'offer' ? {
     width: 31,

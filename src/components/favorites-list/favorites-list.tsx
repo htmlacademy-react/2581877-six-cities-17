@@ -40,7 +40,7 @@ export default function FavoritesList(): JSX.Element {
                   </div>
                   <div className="favorites__places">
                     {offersInCity.map((offer: OfferPreview) => (
-                      <OfferCard key={offer.id} offer={offer} onHoverCallback={() => { }} cardStyle={'favorites'} />
+                      <OfferCard key={offer.id} offer={offer} cardStyle={'favorites'} />
                     ))}
                   </div>
                 </li>

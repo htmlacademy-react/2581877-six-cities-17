@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Header from '../../components/header/header';
+import './page-404.css';
 
 function Page404(): JSX.Element {
   return (
@@ -19,8 +20,8 @@ function Page404(): JSX.Element {
               <section className="cities__no-places">
                 <div className="cities__status-wrapper tabs__content" style={{backgroundImage:'none'}}>
                   <b className="cities__status">404 Not Found</b>
-                  <p className="cities__status-description">Navigate to
-                    {' '}<Link to={AppRoute.Root} style={{textDecoration: 'underline dotted'}}>main page</Link>
+                  <p className="cities__status-description cities__status-description-undeline">Navigate to
+                    {' '}<Link to={AppRoute.Root} className="cities__status-description-link">main page</Link>
                   </p>
                 </div>
               </section>

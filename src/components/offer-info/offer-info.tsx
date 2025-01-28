@@ -1,8 +1,8 @@
 import { OfferFull } from '../../types';
-import { ratingToPercent } from '../../common';
 import OfferReviewsList from '../offer-reviews-list/offer-reviews-list';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 import cn from 'classnames';
+import RatingStar from '../rating-star/rating-star';
 
 type OfferInfoProps = {
   offer: OfferFull;
@@ -31,10 +31,7 @@ export default function OfferInfo({ offer }: OfferInfoProps): JSX.Element {
 
           </div>
           <div className="offer__rating rating">
-            <div className="offer__stars rating__stars">
-              <span style={{ width: ratingToPercent(offer.rating) }}></span>
-              <span className="visually-hidden">Rating</span>
-            </div>
+            <RatingStar rating={offer.rating} componentStyle='place' />
             <span className="offer__rating-value rating__value">{offer.rating}</span>
           </div>
           <ul className="offer__features">
