@@ -1,6 +1,6 @@
-import { NameSpace, NewReviewStatus } from "../../const";
-import { makeFakeOfferFull, makeFakeOfferPreview, makeFakeOfferReview } from "../../utils/mocks";
-import { getNewReviewStatus, getOffer, getOfferNearBy, getOfferReviews, getOfferReviewsSorted, hasOfferFetchError } from "./selectors";
+import { NameSpace, NewReviewStatus } from '../../const';
+import { makeFakeOfferFull, makeFakeOfferPreview, makeFakeOfferReview } from '../../utils/mocks';
+import { getNewReviewStatus, getOffer, getOfferNearBy, getOfferReviews, getOfferReviewsSorted, hasOfferFetchError } from './selectors';
 
 describe('OffersData selectoers', () => {
 
@@ -14,7 +14,7 @@ describe('OffersData selectoers', () => {
         reviews: [],
         newReviewStatus: NewReviewStatus.Empty,
       }
-    }
+    };
 
     const result = getOffer(state);
     expect(result).toEqual(fakeOfferFull);
@@ -31,7 +31,7 @@ describe('OffersData selectoers', () => {
         reviews: [],
         newReviewStatus: NewReviewStatus.Empty,
       }
-    }
+    };
 
     const result = getOfferNearBy(state);
     expect(result).toEqual(fakeOffersPreview);
@@ -47,7 +47,7 @@ describe('OffersData selectoers', () => {
         reviews: [],
         newReviewStatus: NewReviewStatus.Empty,
       }
-    }
+    };
 
     const result = hasOfferFetchError(state);
     expect(result).toBe(true);
@@ -64,7 +64,7 @@ describe('OffersData selectoers', () => {
         reviews: fakeOffersReview,
         newReviewStatus: NewReviewStatus.Empty,
       }
-    }
+    };
 
     const result = getOfferReviews(state);
     expect(result).toEqual(fakeOffersReview);
@@ -81,7 +81,7 @@ describe('OffersData selectoers', () => {
         reviews: [],
         newReviewStatus: newReviewStatus,
       }
-    }
+    };
 
     const result = getNewReviewStatus(state);
     expect(result).toBe(newReviewStatus);
@@ -105,7 +105,7 @@ describe('OffersData selectoers', () => {
         reviews: reviewList,
         newReviewStatus: NewReviewStatus.Empty,
       }
-    }
+    };
 
     const result = getOfferReviewsSorted(state);
     expect(result).toEqual(expectedReviewList);
@@ -114,8 +114,4 @@ describe('OffersData selectoers', () => {
 
 
 });
-
-
-
-
 

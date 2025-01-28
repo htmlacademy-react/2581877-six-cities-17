@@ -1,12 +1,12 @@
-import { NameSpace, SortBy } from "../../const";
-import { OfferCity } from "../../types";
-import { makeFakeOfferPreview } from "../../utils/mocks";
-import { getCurrentCity, getFilteredAndSortedOffers, getOffersList, getSortOption } from "./selectors";
+import { NameSpace, SortBy } from '../../const';
+import { OfferCity } from '../../types';
+import { makeFakeOfferPreview } from '../../utils/mocks';
+import { getCurrentCity, getFilteredAndSortedOffers, getOffersList, getSortOption } from './selectors';
 
 describe('OffersListData selectors', () => {
 
   it('should return offersList from state', () => {
-    const offerCity: OfferCity = 'Paris'
+    const offerCity: OfferCity = 'Paris';
     const fakeOffersList = [makeFakeOfferPreview()];
     const state = {
       [NameSpace.OfferPreview]: {
@@ -14,7 +14,7 @@ describe('OffersListData selectors', () => {
         offersList: fakeOffersList,
         sortBy: SortBy.Popular,
       }
-    }
+    };
 
     const result = getOffersList(state);
     expect(result).toEqual(fakeOffersList);
@@ -22,7 +22,7 @@ describe('OffersListData selectors', () => {
   });
 
   it('should return sortBy from state', () => {
-    const offerCity: OfferCity = 'Paris'
+    const offerCity: OfferCity = 'Paris';
     const sortBy = SortBy.PriceLowToHigh;
     const state = {
       [NameSpace.OfferPreview]: {
@@ -30,7 +30,7 @@ describe('OffersListData selectors', () => {
         offersList: [],
         sortBy: sortBy,
       }
-    }
+    };
 
     const result = getSortOption(state);
     expect(result).toBe(sortBy);
@@ -38,14 +38,14 @@ describe('OffersListData selectors', () => {
   });
 
   it('should return currentCity from state', () => {
-    const offerCity: OfferCity = 'Cologne'
+    const offerCity: OfferCity = 'Cologne';
     const state = {
       [NameSpace.OfferPreview]: {
         currentCity: offerCity,
         offersList: [],
         sortBy: SortBy.Popular,
       }
-    }
+    };
 
     const result = getCurrentCity(state);
     expect(result).toBe(offerCity);
@@ -69,7 +69,7 @@ describe('OffersListData selectors', () => {
         offersList: LowToHighOffersList,
         sortBy: SortBy.PriceHighToLow,
       }
-    }
+    };
     const result = getFilteredAndSortedOffers(state);
     expect(result).toEqual(HighToLowOffersList);
 
@@ -91,7 +91,7 @@ describe('OffersListData selectors', () => {
         offersList: HighToLowOffersList,
         sortBy: SortBy.PriceLowToHigh,
       }
-    }
+    };
     const result = getFilteredAndSortedOffers(state);
     expect(result).toEqual(LowToHighOffersList);
 
@@ -113,14 +113,14 @@ describe('OffersListData selectors', () => {
         offersList: lowRatesOffersList,
         sortBy: SortBy.TopRrated,
       }
-    }
+    };
     const result = getFilteredAndSortedOffers(state);
     expect(result).toEqual(topRatesOffersList);
 
   });
 
   it('should return offersList dafault sorted by popular from state', () => {
-    const offerCity: OfferCity = 'Paris'
+    const offerCity: OfferCity = 'Paris';
     const fakeOffersList = [makeFakeOfferPreview()];
     const state = {
       [NameSpace.OfferPreview]: {
@@ -128,7 +128,7 @@ describe('OffersListData selectors', () => {
         offersList: fakeOffersList,
         sortBy: SortBy.Popular,
       }
-    }
+    };
 
     const result = getFilteredAndSortedOffers(state);
     expect(result).toEqual(fakeOffersList);
@@ -136,6 +136,4 @@ describe('OffersListData selectors', () => {
 
   });
 });
-
-
 

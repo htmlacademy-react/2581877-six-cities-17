@@ -1,7 +1,7 @@
-import { AuthorizationStatus, NameSpace } from "../../const";
-import { CategorizedOffers, OfferCity } from "../../types";
-import { makeFakeOfferPreview, makeFakeUser } from "../../utils/mocks";
-import { getAuthorizationStatus, getCategorizedFavorites, getFavorites, getFavoritesCount, getUser } from "./selectors";
+import { AuthorizationStatus, NameSpace } from '../../const';
+import { CategorizedOffers } from '../../types';
+import { makeFakeOfferPreview, makeFakeUser } from '../../utils/mocks';
+import { getAuthorizationStatus, getCategorizedFavorites, getFavorites, getFavoritesCount, getUser } from './selectors';
 
 describe('UserProcess selectors', () => {
 
@@ -13,7 +13,7 @@ describe('UserProcess selectors', () => {
         user: null,
         favorites: []
       }
-    }
+    };
 
     const result = getAuthorizationStatus(state);
     expect(result).toBe(authorizationStatus);
@@ -28,7 +28,7 @@ describe('UserProcess selectors', () => {
         user: fakeUser,
         favorites: []
       }
-    }
+    };
 
     const result = getUser(state);
     expect(result).toEqual(fakeUser);
@@ -43,7 +43,7 @@ describe('UserProcess selectors', () => {
         user: null,
         favorites: fakeFavoritesList
       }
-    }
+    };
 
     const result = getFavorites(state);
     expect(result).toEqual(fakeFavoritesList);
@@ -58,7 +58,7 @@ describe('UserProcess selectors', () => {
         user: null,
         favorites: fakeFavoritesList
       }
-    }
+    };
 
     const result = getFavoritesCount(state);
     expect(result).toBe(1);
@@ -78,13 +78,13 @@ describe('UserProcess selectors', () => {
         user: null,
         favorites: [parisOffer, brusselsOffer]
       }
-    }
+    };
 
     const categorizedOffers: CategorizedOffers = {
       Paris: [parisOffer],
       Brussels: [brusselsOffer],
 
-    }
+    };
 
     const result = getCategorizedFavorites(state);
     expect(result).toEqual(categorizedOffers);
