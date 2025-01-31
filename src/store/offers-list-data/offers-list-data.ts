@@ -3,27 +3,27 @@ import { fetchOffersList } from '../api-actions';
 import { createSlice } from '@reduxjs/toolkit';
 import { OfferPreview } from '../../types';
 import { OfferCity } from '../../types';
-import { SortBy } from '../../const';
+import { SortOptions } from '../../const';
 import { PayloadAction } from '@reduxjs/toolkit';
 
 type InitialState = {
   currentCity: OfferCity;
   offersList: OfferPreview[];
-  sortBy: SortBy;
+  sortBy: SortOptions;
 }
 
 
 const initialState: InitialState = {
   currentCity: 'Paris',
   offersList: [],
-  sortBy: SortBy.Popular,
+  sortBy: SortOptions.Popular,
 };
 
 export const offersListData = createSlice({
   name: NameSpace.OfferPreview,
   initialState,
   reducers: {
-    sortByAction: (state, action: PayloadAction<SortBy>) => {
+    sortByAction: (state, action: PayloadAction<SortOptions>) => {
       state.sortBy = action.payload;
     },
 

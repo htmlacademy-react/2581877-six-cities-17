@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { getLinkToOffer } from '../../common';
+import { getLinkToOffer, upperCaseFirstLatter } from '../../common';
 import cn from 'classnames';
 import { OfferPreview } from '../../types';
 import BookmarkButton from '../bookmark-button/bookmark-button';
@@ -8,11 +8,11 @@ import RatingStar from '../rating-star/rating-star';
 
 type OfferCardProps = {
   offer: OfferPreview;
-  handleOnHover?: (activeOffer: OfferPreview | null) => void;
+  onHover?: (activeOffer: OfferPreview | null) => void;
   cardStyle: 'main' | 'nearby' | 'favorites';
 }
 
-const OfferCard = React.memo(({ offer, handleOnHover, cardStyle }: OfferCardProps): JSX.Element => {
+const OfferCard = React.memo(({ offer, onHover, cardStyle }: OfferCardProps): JSX.Element => {
   const linkToOffer: string = getLinkToOffer(offer.id);
   const imageSize = cardStyle === 'favorites' ? {
     width: 150,
@@ -31,8 +31,8 @@ const OfferCard = React.memo(({ offer, handleOnHover, cardStyle }: OfferCardProp
           { ['favorites__card']: cardStyle === 'favorites' },
         )
       }
-      onMouseEnter={() => handleOnHover && handleOnHover(offer)}
-      onMouseLeave={() => handleOnHover && handleOnHover(null)}
+      onMouseEnter={() => onHover && onHover(offer)}
+      onMouseLeave={() => onHover && onHover(null)}
     >
       {offer.isPremium && (
         <div className="place-card__mark">
@@ -73,7 +73,7 @@ const OfferCard = React.memo(({ offer, handleOnHover, cardStyle }: OfferCardProp
         <h2 className="place-card__name">
           <Link to={linkToOffer}>{offer.title}</Link>
         </h2>
-        <p className="place-card__type">{offer.type}</p>
+        <p className="place-card__type">{upperCaseFirstLatter(offer.type)}</p>
       </div>
     </article >
 

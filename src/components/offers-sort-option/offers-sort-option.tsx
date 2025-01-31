@@ -1,11 +1,11 @@
 import cn from 'classnames';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import { SortBy } from '../../const';
+import { SortOptions } from '../../const';
 import { sortByAction } from '../../store/offers-list-data/offers-list-data';
 import { getSortOption } from '../../store/offers-list-data/selectors';
 
 type OffersSortOptionProps = {
-  sortBy: SortBy;
+  sortBy: SortOptions;
 }
 
 export default function OffersSortOption({ sortBy }: OffersSortOptionProps): JSX.Element {

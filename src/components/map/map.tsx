@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { Icon, Marker, layerGroup } from 'leaflet';
-import { URL_MARKER_DEFAULT, URL_MARKER_ACTIVE } from '../../const';
+import { MarkerUrl } from '../../const';
 import useMap from '../../hooks/use-map';
 import cn from 'classnames';
 import 'leaflet/dist/leaflet.css';
@@ -16,13 +16,13 @@ type MapProps = {
 };
 
 const defaultCustomIcon = new Icon({
-  iconUrl: URL_MARKER_DEFAULT,
+  iconUrl: MarkerUrl.Default,
   iconSize: [27, 39],
   iconAnchor: [13, 39]
 });
 
 const activeCustomIcon = new Icon({
-  iconUrl: URL_MARKER_ACTIVE,
+  iconUrl: MarkerUrl.Active,
   iconSize: [27, 39],
   iconAnchor: [13, 39]
 });

@@ -2,7 +2,7 @@ import { makeFakeOfferPreview } from '../../utils/mocks';
 import { fetchOffersList } from '../api-actions';
 import { filterByCity, offersListData, sortByAction, updateFavorites } from './offers-list-data';
 import { OfferCity } from '../../types';
-import { SortBy } from '../../const';
+import { SortOptions } from '../../const';
 
 describe('OfferDataList slice', () => {
 
@@ -14,7 +14,7 @@ describe('OfferDataList slice', () => {
     const expectedState = {
       currentCity: cityName,
       offersList: [],
-      sortBy: SortBy.Popular,
+      sortBy: SortOptions.Popular,
     };
 
     const result = offersListData.reducer(undefined, emptyType);
@@ -27,7 +27,7 @@ describe('OfferDataList slice', () => {
     const expectedState = {
       currentCity: cityName,
       offersList: [],
-      sortBy: SortBy.Popular,
+      sortBy: SortOptions.Popular,
     };
 
     const result = offersListData.reducer(undefined, filterByCity(cityName));
@@ -41,10 +41,10 @@ describe('OfferDataList slice', () => {
     const expectedState = {
       currentCity: cityName,
       offersList: [],
-      sortBy: SortBy.TopRrated,
+      sortBy: SortOptions.TopRrated,
     };
 
-    const result = offersListData.reducer(undefined, sortByAction(SortBy.TopRrated));
+    const result = offersListData.reducer(undefined, sortByAction(SortOptions.TopRrated));
 
     expect(result).toEqual(expectedState);
   });
@@ -67,12 +67,12 @@ describe('OfferDataList slice', () => {
     const initialState = {
       currentCity: cityName,
       offersList: [unfavoriteOfferPreview],
-      sortBy: SortBy.Popular,
+      sortBy: SortOptions.Popular,
     };
     const expectedState = {
       currentCity: cityName,
       offersList: [favoriteOfferPreview],
-      sortBy: SortBy.Popular,
+      sortBy: SortOptions.Popular,
     };
 
     const result = offersListData.reducer(initialState, updateFavorites({ offerId: fakeId, isFavorite: true }));
@@ -97,12 +97,12 @@ describe('OfferDataList slice', () => {
     const initialState = {
       currentCity: cityName,
       offersList: [favoriteOfferPreview],
-      sortBy: SortBy.Popular,
+      sortBy: SortOptions.Popular,
     };
     const expectedState = {
       currentCity: cityName,
       offersList: [unfavoriteOfferPreview],
-      sortBy: SortBy.Popular,
+      sortBy: SortOptions.Popular,
     };
 
     const result = offersListData.reducer(initialState, updateFavorites({ offerId: fakeId, isFavorite: false }));
@@ -118,7 +118,7 @@ describe('OfferDataList slice', () => {
     const expectedState = {
       currentCity: cityName,
       offersList: offerPreviewList,
-      sortBy: SortBy.Popular,
+      sortBy: SortOptions.Popular,
     };
 
     const result = offersListData.reducer(undefined, fetchOffersList.fulfilled(offerPreviewList, '', undefined));

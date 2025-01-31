@@ -1,10 +1,10 @@
-import { NameSpace, SortBy } from '../../const';
+import { NameSpace, SortOptions } from '../../const';
 import { OfferCity, OfferPreview } from '../../types';
 import { State } from '../../types';
 import { createSelector } from 'reselect';
 
 export const getOffersList = (state: Pick<State, NameSpace.OfferPreview>): OfferPreview[] => state[NameSpace.OfferPreview].offersList;
-export const getSortOption = (state: Pick<State, NameSpace.OfferPreview>): SortBy => state[NameSpace.OfferPreview].sortBy;
+export const getSortOption = (state: Pick<State, NameSpace.OfferPreview>): SortOptions => state[NameSpace.OfferPreview].sortBy;
 export const getCurrentCity = (state: Pick<State, NameSpace.OfferPreview>): OfferCity => state[NameSpace.OfferPreview].currentCity;
 export const getFilteredAndSortedOffers = createSelector(
   [getOffersList, getCurrentCity, getSortOption],
@@ -12,11 +12,11 @@ export const getFilteredAndSortedOffers = createSelector(
 
     const filteredOffers = offersList.filter((offer) => offer.city.name === currentCity);
     switch (sortBy) {
-      case SortBy.PriceHighToLow:
+      case SortOptions.PriceHighToLow:
         return filteredOffers.sort((a, b) => b.price - a.price);
-      case SortBy.PriceLowToHigh:
+      case SortOptions.PriceLowToHigh:
         return filteredOffers.sort((a, b) => a.price - b.price);
-      case SortBy.TopRrated:
+      case SortOptions.TopRrated:
         return filteredOffers.sort((a, b) => b.rating - a.rating);
       default:
         return filteredOffers;

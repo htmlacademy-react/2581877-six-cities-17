@@ -1,6 +1,6 @@
 import { NameSpace, NewReviewStatus } from '../../const';
 import { makeFakeOfferFull, makeFakeOfferPreview, makeFakeOfferReview } from '../../utils/mocks';
-import { getNewReviewStatus, getOffer, getOfferNearBy, getOfferReviews, getOfferReviewsSorted, hasOfferFetchError } from './selectors';
+import { getNewReviewStatus, getOffer, getOfferNearBy, getOfferReviews, getOfferReviewsSorted, getOffersReviewsCount, hasOfferFetchError } from './selectors';
 
 describe('OffersData selectoers', () => {
 
@@ -85,6 +85,23 @@ describe('OffersData selectoers', () => {
 
     const result = getNewReviewStatus(state);
     expect(result).toBe(newReviewStatus);
+
+  });
+
+  it('should return reviews count from state', () => {
+    const fakeOffersReview = [makeFakeOfferReview()];
+    const state = {
+      [NameSpace.OfferFull]: {
+        offerFull: null,
+        hasFetchError: false,
+        offersNearby: [],
+        reviews: fakeOffersReview,
+        newReviewStatus: NewReviewStatus.Empty,
+      }
+    };
+
+    const result = getOffersReviewsCount(state);
+    expect(result).toBe(1);
 
   });
 
