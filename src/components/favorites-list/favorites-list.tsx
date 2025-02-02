@@ -13,7 +13,7 @@ export default function FavoritesList(): JSX.Element {
   const navigate = useNavigate();
 
 
-  const onCityLabelClick = (cityString: string) => {
+  const handleCityLabelClick = (cityString: string) => {
     const cityName: OfferCity = cityString as OfferCity;
     dispatch(filterByCity(cityName));
     navigate(AppRoute.Root);
@@ -33,7 +33,7 @@ export default function FavoritesList(): JSX.Element {
                 <li className="favorites__locations-items" key={cityName}>
                   <div className="favorites__locations locations locations--current">
                     <div className="locations__item">
-                      <a className="locations__item-link" onClick={() => onCityLabelClick(cityName)}>
+                      <a className="locations__item-link" onClick={() => handleCityLabelClick(cityName)}>
                         <span>{cityName}</span>
                       </a>
                     </div>

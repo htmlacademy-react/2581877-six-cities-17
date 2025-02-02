@@ -5,4 +5,4 @@ export const replaceApiPath = (where: string, replacements: { [key: string]: str
   Object.keys(replacements).reduce((acc, key) => (
     acc.replace(`{${key}}`, replacements[key])
   ), where);
-
+export const upperCaseFirstLatter = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);

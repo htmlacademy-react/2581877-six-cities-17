@@ -7,10 +7,6 @@ export type OfferType = typeof OfferTypes[number];
 export const ОfferCities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
 export type OfferCity = typeof ОfferCities[number];
 
-export type OfferСonvenience = 'Wi-Fi' | 'Washing machine' | 'Towels' | 'Heating' | 'Coffee machine' | 'Baby seat' | 'Kitchen' | 'Dishwasher' | 'Cabel TV' | 'Fridge';
-export type OfferConveniences = OfferСonvenience[];
-
-
 export type Location = {
   latitude: number;
   longitude: number;
@@ -81,10 +77,6 @@ export type MapStartPosition = {
 
 export type CategorizedOffers = {
   [cityName in OfferCity]?: OfferPreview[];
-};
-
-export type CitiesMapStartPosition = {
-  [K in typeof ОfferCities[number]]: MapStartPosition
 };
 
 export type State = ReturnType<typeof store.getState>;

@@ -1,4 +1,4 @@
-import { NameSpace, NewReviewStatus } from '../../const';
+import { NameSpace, NewReviewStatus, OFFERS_NEARBY_LIST_MAX_COUNT } from '../../const';
 import { fetchOffer, fetchNearby, fetchReviews, pushNewReviews } from '../api-actions';
 import { createSlice } from '@reduxjs/toolkit';
 import { OfferPreview } from '../../types';
@@ -65,7 +65,7 @@ export const offerData = createSlice({
       })
 
       .addCase(fetchNearby.fulfilled, (state, action) => {
-        state.offersNearby = action.payload.slice(0, 3);
+        state.offersNearby = action.payload.slice(0, OFFERS_NEARBY_LIST_MAX_COUNT);
       })
 
       .addCase(fetchReviews.fulfilled, (state, action) => {

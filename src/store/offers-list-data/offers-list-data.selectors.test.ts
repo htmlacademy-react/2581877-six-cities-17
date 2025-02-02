@@ -1,4 +1,4 @@
-import { NameSpace, SortBy } from '../../const';
+import { NameSpace, SortOptions } from '../../const';
 import { OfferCity } from '../../types';
 import { makeFakeOfferPreview } from '../../utils/mocks';
 import { getCurrentCity, getFilteredAndSortedOffers, getOffersList, getSortOption } from './selectors';
@@ -12,7 +12,7 @@ describe('OffersListData selectors', () => {
       [NameSpace.OfferPreview]: {
         currentCity: offerCity,
         offersList: fakeOffersList,
-        sortBy: SortBy.Popular,
+        sortBy: SortOptions.Popular,
       }
     };
 
@@ -23,7 +23,7 @@ describe('OffersListData selectors', () => {
 
   it('should return sortBy from state', () => {
     const offerCity: OfferCity = 'Paris';
-    const sortBy = SortBy.PriceLowToHigh;
+    const sortBy = SortOptions.PriceLowToHigh;
     const state = {
       [NameSpace.OfferPreview]: {
         currentCity: offerCity,
@@ -43,7 +43,7 @@ describe('OffersListData selectors', () => {
       [NameSpace.OfferPreview]: {
         currentCity: offerCity,
         offersList: [],
-        sortBy: SortBy.Popular,
+        sortBy: SortOptions.Popular,
       }
     };
 
@@ -67,7 +67,7 @@ describe('OffersListData selectors', () => {
       [NameSpace.OfferPreview]: {
         currentCity: offerCity,
         offersList: LowToHighOffersList,
-        sortBy: SortBy.PriceHighToLow,
+        sortBy: SortOptions.PriceHighToLow,
       }
     };
     const result = getFilteredAndSortedOffers(state);
@@ -89,7 +89,7 @@ describe('OffersListData selectors', () => {
       [NameSpace.OfferPreview]: {
         currentCity: offerCity,
         offersList: HighToLowOffersList,
-        sortBy: SortBy.PriceLowToHigh,
+        sortBy: SortOptions.PriceLowToHigh,
       }
     };
     const result = getFilteredAndSortedOffers(state);
@@ -111,7 +111,7 @@ describe('OffersListData selectors', () => {
       [NameSpace.OfferPreview]: {
         currentCity: offerCity,
         offersList: lowRatesOffersList,
-        sortBy: SortBy.TopRrated,
+        sortBy: SortOptions.TopRrated,
       }
     };
     const result = getFilteredAndSortedOffers(state);
@@ -126,7 +126,7 @@ describe('OffersListData selectors', () => {
       [NameSpace.OfferPreview]: {
         currentCity: offerCity,
         offersList: fakeOffersList,
-        sortBy: SortBy.Popular,
+        sortBy: SortOptions.Popular,
       }
     };
 

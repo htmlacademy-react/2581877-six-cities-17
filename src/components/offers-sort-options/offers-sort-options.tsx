@@ -2,7 +2,7 @@ import { useState } from 'react';
 import cn from 'classnames';
 import OffersSortOption from '../offers-sort-option/offers-sort-option';
 import { useAppSelector } from '../../hooks';
-import { SortBy } from '../../const';
+import { SortOptions } from '../../const';
 import { getSortOption } from '../../store/offers-list-data/selectors';
 import React from 'react';
 
@@ -24,10 +24,10 @@ const OffersSortOptions = React.memo((): JSX.Element => {
         onMouseLeave={() => setMouseHover(false)}
         onClick={() => setMouseHover(false)}
       >
-        <OffersSortOption sortBy={SortBy.Popular} />
-        <OffersSortOption sortBy={SortBy.PriceHighToLow} />
-        <OffersSortOption sortBy={SortBy.PriceLowToHigh} />
-        <OffersSortOption sortBy={SortBy.TopRrated} />
+        <OffersSortOption sortBy={SortOptions.Popular} />
+        <OffersSortOption sortBy={SortOptions.PriceHighToLow} />
+        <OffersSortOption sortBy={SortOptions.PriceLowToHigh} />
+        <OffersSortOption sortBy={SortOptions.TopRrated} />
       </ul>
     </form>
   );

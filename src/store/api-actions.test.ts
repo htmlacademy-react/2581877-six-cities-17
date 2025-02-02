@@ -5,7 +5,7 @@ import { Action } from 'redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { State } from '../types';
 import { AppThunkDispatch, extractActionsTypes, makeFakeOfferFull, makeFakeOfferPreview } from '../utils/mocks';
-import { APIRoutes } from '../const';
+import { APIRoute } from '../const';
 import { fetchAuthorizationStatus, fetchOffersList, fetchOffer, fetchNearby, logInAction, logOutAction } from './api-actions';
 import { replaceApiPath } from '../common';
 import * as tokenStorage from '../services/tokens';
@@ -23,7 +23,7 @@ describe('async actions', () => {
 
   describe('fetchAuthorisationStatus', () => {
     it('should dispatch "fetchAuthorizationStatus.pending" and "fetchAuthorizationStatus.fulfilled" with thunk "fetchAuthorizationStatus', async () => {
-      mockAxiosAdapter.onGet(APIRoutes.Login).reply(200);
+      mockAxiosAdapter.onGet(APIRoute.Login).reply(200);
 
       await store.dispatch(fetchAuthorizationStatus());
       const actions = extractActionsTypes(store.getActions());
@@ -37,7 +37,7 @@ describe('async actions', () => {
 
 
   it('should dispatch "fetchAuthorizationStatus.pending" and "fetchAuthorizationStatus.rejected" when server response 401', async () => {
-    mockAxiosAdapter.onGet(APIRoutes.Login).reply(401);
+    mockAxiosAdapter.onGet(APIRoute.Login).reply(401);
 
     await store.dispatch(fetchAuthorizationStatus());
     const actions = extractActionsTypes(store.getActions());
@@ -51,7 +51,7 @@ describe('async actions', () => {
   describe('fetchOffersList', () => {
     it('should dispatch "fetchOffersList.pending", "fetchOffersList.fulfilled", when server response 200', async () => {
       const mockOfferList = [makeFakeOfferPreview()];
-      mockAxiosAdapter.onGet(APIRoutes.OffersList).reply(200, mockOfferList);
+      mockAxiosAdapter.onGet(APIRoute.OffersList).reply(200, mockOfferList);
 
       await store.dispatch(fetchOffersList());
 
@@ -69,7 +69,7 @@ describe('async actions', () => {
     });
 
     it('should dispatch "fetchOffersList.pending", "fetchOffersList.rejected" when server response 400', async () => {
-      mockAxiosAdapter.onGet(APIRoutes.OffersList).reply(400, []);
+      mockAxiosAdapter.onGet(APIRoute.OffersList).reply(400, []);
 
       await store.dispatch(fetchOffersList());
       const actions = extractActionsTypes(store.getActions());
@@ -84,7 +84,7 @@ describe('async actions', () => {
   describe('fetchOffer', () => {
     it('should dispatch "fetchOffer.pending", "fetchOffer.fulfilled", when server response 200', async () => {
       const mockOfferFull = makeFakeOfferFull();
-      mockAxiosAdapter.onGet(replaceApiPath(APIRoutes.Offer, { offerId: mockOfferFull.id })).reply(200, mockOfferFull);
+      mockAxiosAdapter.onGet(replaceApiPath(APIRoute.Offer, { offerId: mockOfferFull.id })).reply(200, mockOfferFull);
 
       await store.dispatch(fetchOffer({ id: mockOfferFull.id }));
 
@@ -102,7 +102,7 @@ describe('async actions', () => {
     });
 
     it('should dispatch "fetchOffer.pending", "fetchOffer.rejected" when server response 404', async () => {
-      mockAxiosAdapter.onGet(replaceApiPath(APIRoutes.Offer, { offerId: '' })).reply(404, []);
+      mockAxiosAdapter.onGet(replaceApiPath(APIRoute.Offer, { offerId: '' })).reply(404, []);
 
       await store.dispatch(fetchOffer({ id: '' }));
       const actions = extractActionsTypes(store.getActions());
@@ -117,7 +117,7 @@ describe('async actions', () => {
   describe('fetchNearby', () => {
     it('should dispatch "fetchNearby.pending", "fetchNearby.fulfilled", when server response 200', async () => {
       const mockNearByList = [makeFakeOfferPreview()];
-      mockAxiosAdapter.onGet(replaceApiPath(APIRoutes.Nearby, { offerId: '' })).reply(200, mockNearByList);
+      mockAxiosAdapter.onGet(replaceApiPath(APIRoute.Nearby, { offerId: '' })).reply(200, mockNearByList);
 
       await store.dispatch(fetchNearby({ id: '' }));
 
@@ -135,7 +135,7 @@ describe('async actions', () => {
     });
 
     it('should dispatch "fetchNearby.pending", "fetchNearby.rejected" when server response 404', async () => {
-      mockAxiosAdapter.onGet(replaceApiPath(APIRoutes.Nearby, { offerId: '' })).reply(404, []);
+      mockAxiosAdapter.onGet(replaceApiPath(APIRoute.Nearby, { offerId: '' })).reply(404, []);
 
       await store.dispatch(fetchNearby({ id: '' }));
       const actions = extractActionsTypes(store.getActions());
@@ -151,7 +151,7 @@ describe('async actions', () => {
     it('should dispatch "loginAction.pending", "redirectToRoute", "loginAction.fulfilled" when server response 200', async () => {
       const fakeUser = { email: 'test@test.ru', password: '123456' };
       const fakeServerReplay = { token: 'secret' };
-      mockAxiosAdapter.onPost(APIRoutes.Login).reply(200, fakeServerReplay);
+      mockAxiosAdapter.onPost(APIRoute.Login).reply(200, fakeServerReplay);
 
       await store.dispatch(logInAction(fakeUser));
       const actions = extractActionsTypes(store.getActions());
@@ -165,7 +165,7 @@ describe('async actions', () => {
     it('should call "saveToken" once with the received token', async () => {
       const fakeUser = { email: 'test@test.ru', password: '123456' };
       const fakeServerReplay = { token: 'secret' };
-      mockAxiosAdapter.onPost(APIRoutes.Login).reply(200, fakeServerReplay);
+      mockAxiosAdapter.onPost(APIRoute.Login).reply(200, fakeServerReplay);
       const mockSaveToken = vi.spyOn(tokenStorage, 'setToken');
 
       await store.dispatch(logInAction(fakeUser));
@@ -178,7 +178,7 @@ describe('async actions', () => {
 
   describe('logoutAction', () => {
     it('should dispatch "logoutAction.pending", "logoutAction.fulfilled" when server response 204', async () => {
-      mockAxiosAdapter.onDelete(APIRoutes.Logout).reply(204);
+      mockAxiosAdapter.onDelete(APIRoute.Logout).reply(204);
 
       await store.dispatch(logOutAction());
       const actions = extractActionsTypes(store.getActions());
@@ -190,7 +190,7 @@ describe('async actions', () => {
     });
 
     it('should one call "dropToken" with "logoutAction"', async () => {
-      mockAxiosAdapter.onDelete(APIRoutes.Logout).reply(204);
+      mockAxiosAdapter.onDelete(APIRoute.Logout).reply(204);
       const mockDropToken = vi.spyOn(tokenStorage, 'dropToken');
 
       await store.dispatch(logOutAction());

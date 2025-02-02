@@ -18,7 +18,7 @@ export enum OfferListStyle {
   Nearby = 'NEARBY',
 }
 
-export enum SortBy {
+export enum SortOptions {
   Popular = 'Popular',
   PriceLowToHigh = 'Price: low to high',
   PriceHighToLow = 'Price: high to low',
@@ -34,8 +34,7 @@ export enum NewReviewStatus {
 }
 
 
-export enum APIRoutes {
-  Root = '/',
+export enum APIRoute {
   OffersList = '/offers',
   Login = '/login',
   Logout = '/logout',
@@ -52,5 +51,16 @@ export enum NameSpace {
   OfferFull = 'OFFERFULL',
 }
 
-export const URL_MARKER_DEFAULT = '/img/pin.svg';
-export const URL_MARKER_ACTIVE = '/img/pin-active.svg';
+export const MarkerUrl = {
+  Default: '/img/pin.svg',
+  Active: '/img/pin-active.svg',
+} as const;
+
+export const CommentLenght = {
+  Min: 50,
+  Max: 300,
+} as const;
+
+export const GALLERY_IMAGES_MAX_COUNT = 6;
+export const OFFERS_NEARBY_LIST_MAX_COUNT = 3;
+export const OFFER_REVIEWS_MAX_COUNT = 10;

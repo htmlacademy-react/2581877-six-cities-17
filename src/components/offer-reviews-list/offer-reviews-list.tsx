@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { getAuthorizationStatus, getUser } from '../../store/user-process/selectors';
 import { clearReviews } from '../../store/offer-data/offer-data';
 import { fetchReviews } from '../../store/api-actions';
-import { getOfferReviewsSorted } from '../../store/offer-data/selectors';
+import { getOfferReviewsSorted, getOffersReviewsCount } from '../../store/offer-data/selectors';
 
 type OfferReviewsListProps = {
   offerId: string;
@@ -17,8 +17,8 @@ type OfferReviewsListProps = {
 function OfferReviewsList({offerId}: OfferReviewsListProps): JSX.Element {
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const reviewsCount = useAppSelector(getOffersReviewsCount);
   const user = useAppSelector(getUser);
-
 
   let reviewsList: Review[] = [];
   useEffect(() => {
@@ -31,7 +31,7 @@ function OfferReviewsList({offerId}: OfferReviewsListProps): JSX.Element {
 
   return (
     <section className="offer__reviews reviews">
-      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewsList.length}</span></h2>
+      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewsCount}</span></h2>
       <ul className="reviews__list">
         {reviewsList.map((review: Review) => (
           <OfferReview review={review} key={review.id} />

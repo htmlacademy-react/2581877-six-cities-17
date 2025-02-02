@@ -10,6 +10,8 @@ import { getNewReviewStatus } from '../../store/offer-data/selectors';
 import { toast } from 'react-toastify';
 import { NewReviewStatus } from '../../const';
 import { clearNewReviewState } from '../../store/offer-data/offer-data';
+import { useEffect } from 'react';
+import { CommentLenght } from '../../const';
 
 type OfferReviewSubmitProps = {
   user: User;
@@ -24,12 +26,23 @@ function OfferReviewSubmit({offerId, user}: OfferReviewSubmitProps): JSX.Element
   const newReviewStatus = useAppSelector(getNewReviewStatus);
   const reviewIsPending = newReviewStatus === NewReviewStatus.Pending;
 
-  if(newReviewStatus === NewReviewStatus.Error) {
-    dispatch(clearNewReviewState());
-    toast.error('Network error', {
-      toastId: 'network-error'
-    });
-  }
+  useEffect(() => {
+    if (newReviewStatus === NewReviewStatus.Error) {
+      dispatch(clearNewReviewState());
+      toast.error('Network error', {
+        toastId: 'network-error'
+      });
+    }
+
+    if (newReviewStatus === NewReviewStatus.Success) {
+      setComment('');
+      setRating(-1);
+      dispatch(clearNewReviewState());
+      toast('Thank you! Your opinion is very important to us!', {
+        toastId: 'review-added'
+      });
+    }
+  }, [newReviewStatus, dispatch]);
 
   const handleRtingFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const ratingValue = Number(event.target.value);
@@ -51,11 +64,9 @@ function OfferReviewSubmit({offerId, user}: OfferReviewSubmitProps): JSX.Element
     };
     event.preventDefault();
     dispatch(pushNewReviews({review: newReview, offerId}));
-    setComment('');
-    setRating(-1);
   };
 
-  const formIsValid = (): boolean => (comment.length > 50) && (comment.length < 300) && (rating > 0);
+  const formIsValid = (): boolean => (comment.length > CommentLenght.Min) && (comment.length < CommentLenght.Max) && (rating > 0);
   const getRadionLabelId = (labelRating: number): string => `${labelRating}-star`;
 
   const RatingStar = (props: { rating: number; disabled: boolean }) => (

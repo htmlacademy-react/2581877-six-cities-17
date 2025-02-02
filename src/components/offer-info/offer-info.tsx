@@ -3,6 +3,8 @@ import OfferReviewsList from '../offer-reviews-list/offer-reviews-list';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 import cn from 'classnames';
 import RatingStar from '../rating-star/rating-star';
+import { upperCaseFirstLatter } from '../../common';
+import { GALLERY_IMAGES_MAX_COUNT } from '../../const';
 
 type OfferInfoProps = {
   offer: OfferFull;
@@ -13,7 +15,7 @@ export default function OfferInfo({ offer }: OfferInfoProps): JSX.Element {
     <section className="offer">
       <div className="offer__gallery-container container">
         <div className="offer__gallery">
-          {offer.images.slice(0, 6).map((image) => (
+          {offer.images.slice(0, GALLERY_IMAGES_MAX_COUNT).map((image) => (
             <div className="offer__image-wrapper" key={image}>
               <img className="offer__image" src={image} alt="Photo studio" />
             </div>
@@ -36,11 +38,11 @@ export default function OfferInfo({ offer }: OfferInfoProps): JSX.Element {
           </div>
           <ul className="offer__features">
             <li className="offer__feature offer__feature--entire">
-              {offer.type}
+              {upperCaseFirstLatter(offer.type)}
             </li>
-            <li className="offer__feature offer__feature--bedrooms">{offer.bedrooms} {offer.bedrooms === 0 ? 'Bedroom' : 'Bedrooms'}</li>
+            <li className="offer__feature offer__feature--bedrooms">{offer.bedrooms} {offer.bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}</li>
             <li className="offer__feature offer__feature--adults">
-              Max {offer.maxAdults} {offer.maxAdults > 0 ? 'adults' : 'adult'}
+              Max {offer.maxAdults} {offer.maxAdults > 1 ? 'adults' : 'adult'}
             </li>
           </ul>
           <div className="offer__price">

@@ -17,7 +17,7 @@ type OffersListMainProps = {
 function OffersListMain({ offersList, mapStartPosition }: OffersListMainProps): JSX.Element {
   const currentCity = useAppSelector(getCurrentCity);
   const [activeOffer, setActiveOffer] = useState<OfferPreview | null>(null);
-  const handleOnHover = useCallback((offer: OfferPreview | null): void => {
+  const handleOnHoverCard = useCallback((offer: OfferPreview | null): void => {
     setActiveOffer(offer);
   }, []);
 
@@ -31,7 +31,7 @@ function OffersListMain({ offersList, mapStartPosition }: OffersListMainProps): 
           <OffersSortOptions />
           <div className="cities__places-list places__list tabs__content">
             {offersList.map((offer) => (
-              <OfferCard offer={offer} key={offer.id} handleOnHover={handleOnHover} cardStyle={'main'} />
+              <OfferCard offer={offer} key={offer.id} onHover={handleOnHoverCard} cardStyle={'main'} />
             ))}
           </div>
         </section>
