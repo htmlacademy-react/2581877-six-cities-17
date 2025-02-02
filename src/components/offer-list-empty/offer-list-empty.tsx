@@ -1,5 +1,5 @@
-import { useAppSelector } from "../../hooks";
-import { getCurrentCity } from "../../store/offers-list-data/selectors";
+import { useAppSelector } from '../../hooks';
+import { getCurrentCity } from '../../store/offers-list-data/selectors';
 
 export default function OfferListEmpty(): JSX.Element {
   const currentCity = useAppSelector(getCurrentCity);

@@ -33,7 +33,7 @@ function OfferReviewSubmit({offerId, user}: OfferReviewSubmitProps): JSX.Element
         toastId: 'network-error'
       });
     }
-  
+
     if (newReviewStatus === NewReviewStatus.Success) {
       setComment('');
       setRating(-1);

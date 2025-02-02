@@ -61,8 +61,6 @@ export const CommentLenght = {
   Max: 300,
 } as const;
 
-
-
 export const GALLERY_IMAGES_MAX_COUNT = 6;
 export const OFFERS_NEARBY_LIST_MAX_COUNT = 3;
 export const OFFER_REVIEWS_MAX_COUNT = 10;
